@@ -25,9 +25,9 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
             shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.96 }
           }
           transition={{ duration: 0.24, ease: UI_EASE }}
-          className="fixed bottom-4 left-3 sm:left-5 z-50 w-[calc(100vw-6.5rem)] max-w-[360px] bg-[#3A0716]/96 backdrop-blur-md text-[#FAF7F2] border-2 border-[#C8A97E] rounded-[14px] p-3.5 sm:p-4 shadow-2xl"
+          className="fixed bottom-3 sm:bottom-4 left-3 sm:left-5 z-50 w-[calc(100vw-6.5rem)] max-w-[360px] bg-[#3A0716]/96 backdrop-blur-md text-[#FAF7F2] border-2 border-[#C8A97E] rounded-[14px] p-2.5 sm:p-4 shadow-2xl"
         >
-          <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#C8A97E]/30">
+          <div className="flex items-center justify-between gap-2 pb-1.5 sm:pb-2 border-b border-[#C8A97E]/30">
             <div className="flex items-center gap-2">
               <img
                 src="/monogram-gold.png"
@@ -48,13 +48,13 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
             </button>
           </div>
 
-          <p className="font-sans-ui text-xs text-[#F2ECE1]/90 mt-2 leading-relaxed">
+          <p className="font-sans-ui text-[11px] sm:text-xs text-[#F2ECE1]/90 mt-1.5 sm:mt-2 leading-snug sm:leading-relaxed">
             Browser cookies keep your cart items, 28-point tape measurements, and
             lookbook position saved across pages.
           </p>
 
-          <div className="mt-2.5 space-y-1.5">
-            <div className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-[8px] bg-[#5B0E24]/70 border border-[#C8A97E]/35">
+          <div className="mt-2 sm:mt-2.5 space-y-1 sm:space-y-1.5">
+            <div className="flex items-center justify-between gap-2 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] bg-[#5B0E24]/70 border border-[#C8A97E]/35">
               <div>
                 <div className="font-mono-spec text-[11px] text-[#FAF7F2] font-semibold">
                   Essential Cart &amp; Session
@@ -84,7 +84,7 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
               return (
                 <label
                   key={opt.key}
-                  className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-[8px] bg-[#1C1618]/40 border border-[#C8A97E]/30 cursor-pointer hover:border-[#C8A97E]"
+                  className="flex items-center justify-between gap-2 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] bg-[#1C1618]/40 border border-[#C8A97E]/30 cursor-pointer hover:border-[#C8A97E]"
                 >
                   <div>
                     <div className="font-mono-spec text-[11px] text-[#FAF7F2]">
@@ -110,18 +110,18 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
             })}
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2">
+          <div className="mt-2 sm:mt-3 grid grid-cols-2 gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={() => onPersist(DEFAULT_COOKIE_PREFS)}
-              className="min-h-[38px] px-2.5 py-2 rounded-full bg-[#C8A97E] hover:bg-[#FAF7F2] text-[#1C1618] font-sans-ui text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
+              className="min-h-[34px] sm:min-h-[38px] px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-full bg-[#C8A97E] hover:bg-[#FAF7F2] text-[#1C1618] font-sans-ui text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
             >
               Accept Cookies
             </button>
             <button
               type="button"
               onClick={() => onPersist(cookiePrefs)}
-              className="min-h-[38px] px-2.5 py-2 rounded-full border border-[#C8A97E]/75 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
+              className="min-h-[34px] sm:min-h-[38px] px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-full border border-[#C8A97E]/75 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
             >
               Save Cookies
             </button>

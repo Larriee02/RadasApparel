@@ -9,7 +9,6 @@ import {
 import { ORBIT_CARDS, formatNaira } from '../data/raddasData'
 import {
   CoutureTailorSeal,
-  ExoticFiligreeCorners,
   GarmentVisual,
 } from './AtelierVisuals'
 
@@ -169,6 +168,13 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
     rawY.set(0)
   }
 
+  const handleTouchMove = (e) => {
+    if (reduceMotion || !e.touches[0]) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    rawX.set((e.touches[0].clientX - rect.left) / rect.width - 0.5)
+    rawY.set((e.touches[0].clientY - rect.top) / rect.height - 0.5)
+  }
+
   const handleCardSelect = (card) => {
     setActiveCard(card)
     if (onOpenGalleryOutfit) {
@@ -184,6 +190,8 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
       aria-labelledby="hero-orbit-h1"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
       className="relative bg-[#ECE6DC] exotic-damask-bg text-[#1C1618] py-3.5 sm:py-5 md:py-6 md:min-h-[760px] md:h-[calc(100svh-68px)] md:max-h-[840px] overflow-hidden border-b-2 border-[#C8A97E]/60 flex flex-col justify-between"
     >
       {/* Warm Ambient Vignette Spotlight */}
@@ -196,10 +204,10 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
         }}
       />
 
-      {/* 3D Tilted Metallic Astrolabe / Armillary Sanctuary Rings */}
+      {/* 3D Tilted Metallic Astrolabe / Armillary Sanctuary Rings (Visible on Smartphone & Desktop) */}
       <div
         aria-hidden="true"
-        className="hidden md:flex pointer-events-none absolute inset-0 items-center justify-center perspective-stage overflow-hidden"
+        className="flex pointer-events-none absolute inset-0 items-center justify-center perspective-stage overflow-hidden"
       >
         <motion.div
           style={{
@@ -207,14 +215,14 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
             rotateX: ringRotX,
             boxShadow: 'inset 0 0 40px rgba(200, 169, 126, 0.16)',
           }}
-          className="relative w-[760px] h-[760px] rounded-full border-2 border-[#C8A97E]/55 preserve-3d gpu-smooth"
+          className="relative w-[290px] h-[290px] sm:w-[490px] sm:h-[490px] md:w-[760px] md:h-[760px] rounded-full border-2 border-[#C8A97E]/60 preserve-3d gpu-smooth"
         >
-          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rotate-45 bg-[#C8A97E] border border-[#5B0E24]" />
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rotate-45 bg-[#5B0E24] border border-[#C8A97E]" />
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 md:w-3.5 md:h-3.5 rotate-45 bg-[#C8A97E] border border-[#5B0E24]" />
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 md:w-3.5 md:h-3.5 rotate-45 bg-[#5B0E24] border border-[#C8A97E]" />
         </motion.div>
 
         <div
-          className="absolute w-[980px] h-[980px] rounded-full border border-dashed border-[#5B0E24]/30"
+          className="absolute w-[355px] h-[355px] sm:w-[630px] sm:h-[630px] md:w-[980px] md:h-[980px] rounded-full border border-dashed border-[#5B0E24]/30"
           style={{ transform: 'rotateX(68deg) rotateZ(18deg)' }}
         />
       </div>
@@ -251,7 +259,85 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
       </svg>
 
       {/* Main 1280px 3D Spatial Orbit Stage */}
-      <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col md:flex-row items-center justify-center my-0.5 md:my-1 perspective-stage">
+      <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-0 sm:px-6 md:px-10 min-h-[420px] sm:min-h-[540px] md:min-h-0 flex items-center justify-center my-0.5 md:my-1 perspective-stage">
+        {/* 10 Mobile & Small-Tablet 3D Orbit Sphere Plates (< md viewports) */}
+        <motion.div
+          style={{
+            rotateX: stageRotX,
+            rotateY: stageRotY,
+          }}
+          className="md:hidden absolute inset-0 pointer-events-none preserve-3d gpu-smooth"
+        >
+          {ORBIT_CARDS.map((card, i) => {
+            const angleRad = ((-72 + i * 36) * Math.PI) / 180
+            const rxPct = 40.5
+            const ryPct = 40.5
+            const leftPct = 50 + rxPct * Math.cos(angleRad)
+            const topPct = 50 + ryPct * Math.sin(angleRad)
+            const isSelected = activeCard?.id === card.id
+            const clockCode = CLOCK_CODES[card.id] || card.clock || '00H'
+
+            return (
+              <motion.div
+                key={`mob-orb-${card.id}`}
+                data-enter-media
+                initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
+                animate={{
+                  opacity: 1,
+                  scale: isSelected && !reduceMotion ? 1.05 : 1,
+                }}
+                transition={{
+                  opacity: { duration: 0.4, delay: 0.03 * i },
+                  scale: { duration: 0.2, ease: EASE_UI },
+                }}
+                style={{
+                  left: `${leftPct.toFixed(2)}%`,
+                  top: `${topPct.toFixed(2)}%`,
+                }}
+                className="group absolute -translate-x-1/2 -translate-y-1/2 w-[50px] h-[64px] sm:w-[76px] sm:h-[98px] z-10 pointer-events-auto preserve-3d gpu-smooth"
+              >
+                {/* Recessed 3D Plinth Plane */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 translate-x-1 translate-y-1 rounded-[10px] border border-[#C8A97E]/70 bg-[#3A0716]/85 shadow-lg"
+                  style={{ transform: 'translateZ(-12px)' }}
+                />
+                {/* Floating Clock Tab */}
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute -top-2 right-1 z-30 px-1 py-0.2 font-mono-spec text-[8px] sm:text-[9px] font-semibold border shadow-sm ${
+                    isSelected
+                      ? 'bg-[#C8A97E] text-[#1C1618] border-[#1C1618]'
+                      : 'bg-[#3A0716] text-[#C8A97E] border-[#C8A97E]/75'
+                  }`}
+                  style={{ transform: 'translateZ(16px)' }}
+                >
+                  {clockCode}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleCardSelect(card)}
+                  className={`w-full h-full rounded-[10px] overflow-hidden border-2 card-3d-shadow cursor-pointer block ${
+                    isSelected
+                      ? 'border-[#C8A97E] ring-2 ring-[#5B0E24]/70'
+                      : 'border-[#FAF7F2] hover:border-[#C8A97E]'
+                  }`}
+                  aria-label={`${card.title}, ${formatNaira(card.price)}`}
+                >
+                  <GarmentVisual
+                    image={card.image}
+                    alt={card.title}
+                    silhouette={card.silhouette}
+                    tone={card.tone}
+                    eager
+                    className="w-full h-full"
+                  />
+                </button>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+
         {/* 10 Desktop 3D Multi-Plane Orbit Plates */}
         <motion.div
           style={{
@@ -276,22 +362,19 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
         </motion.div>
 
         {/* Exotic Royal Medallion Centerpiece */}
-        <div className="relative z-20 max-w-[440px] w-full mx-auto text-center px-5 sm:px-8 py-4 sm:py-6 rounded-[28px] md:rounded-[999px] bg-[#FAF7F2]/94 backdrop-blur-sm border-2 gold-foil-border card-3d-shadow">
+        <div className="relative z-20 w-[182px] h-[182px] sm:w-[300px] sm:h-[300px] md:w-full md:h-auto md:max-w-[440px] mx-auto text-center px-3 py-3 sm:px-7 sm:py-6 md:px-8 md:py-6 rounded-full bg-[#FAF7F2]/94 backdrop-blur-sm border-2 gold-foil-border card-3d-shadow flex flex-col items-center justify-center">
           <div
             aria-hidden="true"
-            className="hidden md:block pointer-events-none absolute inset-2.5 rounded-[999px] border border-[#C8A97E]/45"
+            className="pointer-events-none absolute inset-1.5 sm:inset-2.5 rounded-full border border-[#C8A97E]/45"
           />
-          <div className="md:hidden">
-            <ExoticFiligreeCorners variant="wine" size={14} />
-          </div>
 
           <div className="relative z-10">
-            <div className="font-mono-spec text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] text-[#5B0E24] mb-1">
+            <div className="font-mono-spec text-[7.5px] sm:text-[11px] md:text-xs uppercase tracking-[0.08em] sm:tracking-[0.16em] text-[#5B0E24] mb-0.5 sm:mb-1">
               Men&apos;s Fashion &bull; From ₦320,000
             </div>
             <h1
               id="hero-orbit-h1"
-              className="font-serif-display text-[2.05rem] sm:text-5xl md:text-[2.85rem] font-semibold text-[#5B0E24] leading-[0.96] tracking-[-0.02em]"
+              className="font-serif-display text-[1.02rem] sm:text-3xl md:text-[2.85rem] font-semibold text-[#5B0E24] leading-[1.02] md:leading-[0.96] tracking-[-0.02em]"
             >
               <MaskLine delay={0} reduceMotion={reduceMotion}>
                 Menswear Cut Around
@@ -306,19 +389,19 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.42, delay: 0.16, ease: EASE_ENTER }}
-              className="font-sans-ui text-xs sm:text-sm leading-snug sm:leading-relaxed text-[#1C1618]/85 max-w-[370px] mx-auto mt-2 sm:mt-3"
+              className="hidden sm:block font-sans-ui text-[11px] sm:text-xs md:text-sm leading-snug sm:leading-relaxed text-[#1C1618]/85 max-w-[235px] md:max-w-[370px] mx-auto mt-2 sm:mt-3"
             >
               Custom-cut ceremonial Agbadas, Senator sets, and peak-lapel suiting tailored
               in Lagos and London alongside ready-to-wear drops.
             </motion.p>
-            <div className="mt-3.5 sm:mt-4 grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+            <div className="mt-2.5 sm:mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5">
               <motion.button
                 type="button"
                 onClick={() => scrollToSection('curved-wall')}
                 whileHover={reduceMotion ? undefined : { y: -1 }}
                 whileTap={reduceMotion ? undefined : { y: 1, scale: 0.985 }}
                 transition={{ duration: 0.12, ease: EASE_UI }}
-                className="px-2.5 sm:px-5 min-h-[40px] sm:min-h-[44px] rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] border border-[#C8A97E]/50 font-sans-ui text-[11px] sm:text-xs font-semibold uppercase tracking-[0.06em] sm:tracking-[0.1em] shadow-md transition-colors cursor-pointer whitespace-nowrap"
+                className="px-2.5 sm:px-5 min-h-[28px] sm:min-h-[44px] rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] border border-[#C8A97E]/50 font-sans-ui text-[9px] sm:text-xs font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em] shadow-md transition-colors cursor-pointer whitespace-nowrap"
               >
                 Explore Lookbook
               </motion.button>
@@ -330,48 +413,12 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
                 whileHover={reduceMotion ? undefined : { y: -1 }}
                 whileTap={reduceMotion ? undefined : { y: 1, scale: 0.985 }}
                 transition={{ duration: 0.12, ease: EASE_UI }}
-                className="px-2.5 sm:px-5 min-h-[40px] sm:min-h-[44px] rounded-full border border-[#5B0E24] bg-[#FAF7F2] text-[#5B0E24] hover:bg-[#5B0E24] hover:text-[#FAF7F2] font-sans-ui text-[11px] sm:text-xs font-semibold uppercase tracking-[0.06em] sm:tracking-[0.1em] transition-colors cursor-pointer whitespace-nowrap"
+                className="px-2.5 sm:px-5 min-h-[28px] sm:min-h-[44px] rounded-full border border-[#5B0E24] bg-[#FAF7F2] text-[#5B0E24] hover:bg-[#5B0E24] hover:text-[#FAF7F2] font-sans-ui text-[9px] sm:text-xs font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-colors cursor-pointer whitespace-nowrap"
               >
                 Book Fitting
               </motion.button>
             </div>
           </div>
-        </div>
-
-        {/* Mobile 10-Outfit 5x2 Lookbook Strip (< md viewports) */}
-        <div className="grid grid-cols-5 gap-1.5 w-full mt-3 md:hidden">
-          {ORBIT_CARDS.map((card, idx) => {
-            const isSelected = activeCard?.id === card.id
-            const code = CLOCK_CODES[card.id] || `${String(idx + 1).padStart(2, '0')}H`
-            return (
-              <button
-                key={`mob-${card.id}`}
-                type="button"
-                onClick={() => handleCardSelect(card)}
-                className={`group relative aspect-[3/4] rounded-t-[20px] rounded-b-[4px] overflow-hidden shadow-md cursor-pointer transition-all ${
-                  isSelected
-                    ? 'border-2 border-[#5B0E24] ring-1 ring-[#C8A97E]'
-                    : 'border border-[#C8A97E]'
-                }`}
-                aria-label={`${card.title} (${formatNaira(card.price)})`}
-              >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute top-1 right-1 z-10 px-1 py-0.2 bg-[#3A0716]/90 text-[#C8A97E] font-mono-spec text-[8px] font-semibold border border-[#C8A97E]/50"
-                >
-                  {code}
-                </span>
-                <GarmentVisual
-                  image={card.image}
-                  alt={card.title}
-                  silhouette={card.silhouette}
-                  tone={card.tone}
-                  eager
-                  className="w-full h-full"
-                />
-              </button>
-            )
-          })}
         </div>
       </div>
 

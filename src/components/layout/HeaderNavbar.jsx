@@ -17,7 +17,7 @@ function HeaderNavbar({
 }) {
   return (
     <header className="sticky top-0 z-50 glass-navbar text-[#FAF7F2] border-b border-[#FAF7F2]/15">
-      <div className="max-w-[1280px] mx-auto px-3.5 sm:px-6 md:px-10 py-2.5 md:py-3">
+      <div className="max-w-[1280px] mx-auto px-3 sm:px-6 md:px-10 py-2 md:py-3">
         {/* Primary Top Bar: Brand Left, 4 Links Center (Desktop), Book Fitting & Cart Top-Right */}
         <div className="flex items-center justify-between gap-2 sm:gap-4">
           {/* Top-Left Clickable Brand Logo -> Returns to Home Page */}
@@ -89,7 +89,7 @@ function HeaderNavbar({
         {/* Mobile-Only Clean 4-Link Frosted Glass Row (Home, About Us, Contact, Gallery) */}
         <nav
           aria-label="Mobile Navigation"
-          className="grid grid-cols-4 gap-1.5 pt-2 mt-2 border-t border-[#FAF7F2]/15 md:hidden"
+          className="grid grid-cols-4 gap-1.5 pt-1.5 mt-1.5 border-t border-[#FAF7F2]/15 md:hidden"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = activePage === item.id
