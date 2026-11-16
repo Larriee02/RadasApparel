@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+:root {
+  --bg-alabaster: #FAF7F2;
+  --bg-linen: #F2ECE1;
+  --color-wine: #5B0E24;
+  --color-burgundy: #3A0716;
+  --color-gold: #C8A97E;
+  --color-charcoal: #1C1618;
+  --ease-ui: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-alabaster);
+    color: var(--color-charcoal);
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-alabaster);
+    color: var(--color-charcoal);
+    overflow-x: hidden;
+  }
+
+  /* Focus ring drawn in full in brand wine/gold per design-taste-frontend */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #5B0E24;
+    outline-offset: 2px;
+  }
+}
+
+.font-serif-display {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+.font-sans-ui {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-mono-spec {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Tactile textile grain overlay for luxury surfaces */
+.linen-texture {
+  background-color: #F2ECE1;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(91, 14, 36, 0.025) 0px,
+      rgba(91, 14, 36, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(200, 169, 126, 0.04) 0px,
+      rgba(200, 169, 126, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.velvet-texture {
+  background-color: #3A0716;
+  background-image: radial-gradient(circle at 30% 25%, #751531 0%, #5B0E24 48%, #3A0716 100%);
+}
+
+.velvet-damask-bg {
+  background-color: #3A0716;
+  background-image:
+    radial-gradient(circle at 24px 24px, rgba(200, 169, 126, 0.16) 1.5px, transparent 1.5px),
+    repeating-linear-gradient(
+      45deg,
+      rgba(200, 169, 126, 0.06) 0px,
+      rgba(200, 169, 126, 0.06) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(200, 169, 126, 0.06) 0px,
+      rgba(200, 169, 126, 0.06) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    radial-gradient(circle at 30% 25%, #751531 0%, #5B0E24 48%, #3A0716 100%);
+  background-size: 48px 48px, auto, auto, cover;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+/* Custom hairline & editorial borders */
+.editorial-border {
+  border: 2px solid #1C1618;
+}
+
+.gold-hairline {
+  border-color: rgba(200, 169, 126, 0.45);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 3D Spatial Perspective & Hardware-Accelerated Plane Controls */
+.perspective-stage {
+  perspective: 1400px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Exotic Afro-Luxury Surfaces & Metallic Champagne Gold Foil */
+.gold-foil-text {
+  background: linear-gradient(135deg, #EAD2AC 0%, #C8A97E 45%, #9A7442 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-foil-border {
+  border-color: #C8A97E;
+  box-shadow: inset 0 0 0 1px rgba(234, 210, 172, 0.45), 0 0 18px rgba(200, 169, 126, 0.18);
+}
+
+.exotic-damask-bg {
+  background-image:
+    radial-gradient(circle at 24px 24px, rgba(200, 169, 126, 0.14) 1.5px, transparent 1.5px),
+    repeating-linear-gradient(
+      45deg,
+      rgba(91, 14, 36, 0.03) 0px,
+      rgba(91, 14, 36, 0.03) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(200, 169, 126, 0.05) 0px,
+      rgba(200, 169, 126, 0.05) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+  background-size: 48px 48px, auto, auto;
+}
+
+.card-3d-shadow {
+  box-shadow:
+    0 22px 44px -12px rgba(28, 22, 24, 0.38),
+    0 4px 12px rgba(91, 14, 36, 0.22);
+}
+
+.mirror-reflection {
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), transparent 72%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), transparent 72%);
+}
+
+.gpu-smooth {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Frosted Glassmorphic Navbar & Specular Pills */
+.glass-navbar {
+  background:
+    linear-gradient(
+      115deg,
+      rgba(250, 247, 242, 0.14) 0%,
+      rgba(250, 247, 242, 0.02) 38%,
+      rgba(200, 169, 126, 0.06) 72%,
+      rgba(250, 247, 242, 0.1) 100%
+    ),
+    rgba(58, 7, 22, 0.72);
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 rgba(250, 247, 242, 0.26),
+    inset 0 -1px 0 rgba(200, 169, 126, 0.32),
+    0 12px 32px -8px rgba(28, 22, 24, 0.28);
+}
+
+.glass-pill {
+  background: rgba(250, 247, 242, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(250, 247, 242, 0.24);
+}
+
+/* Reduced motion: stop decorative spinning and smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-spin-slow {
+    animation: none;
+  }
+}
