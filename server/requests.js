@@ -90,11 +90,28 @@ function validate(kind, body) {
   return { email, clientName, items, subtotal: items.reduce((sum, item) => sum + item.price, 0) }
 }
 
-export function createRequestApi() {
+function sqliteInbox() {
+  let db
+  return {
+    find(key) {
+      db ??= openInbox()
+      return db.prepare('SELECT id, fingerprint FROM requests WHERE request_key = ?').get(key)
+    },
+    insert(key, record) {
+      db ??= openInbox()
+      const result = db.prepare(`
+        INSERT INTO requests (id, kind, request_key, fingerprint, payload, received_at)
+        VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(request_key) DO NOTHING
+      `).run(record.id, record.kind, key, record.fingerprint, JSON.stringify(record.payload), record.received_at)
+      return result.changes > 0
+    },
+  }
+}
+
+export function createRequestApi(inbox = sqliteInbox()) {
   const app = express()
   app.disable('x-powered-by')
-  let db
-  app.use('/api/v1', express.json({ limit: '32kb' }), (req, res) => {
+  app.use('/api/v1', express.json({ limit: '32kb' }), async (req, res) => {
     res.set('Cache-Control', 'no-store')
     const kind = req.path.slice(1)
     if (!['concierge', 'fittings', 'orders'].includes(kind)) {
@@ -108,23 +125,20 @@ export function createRequestApi() {
       return res.status(400).json({ error: 'Invalid request format.' })
     }
     try {
-      db ??= openInbox()
       const fingerprint = createHash('sha256').update(JSON.stringify([kind, req.body])).digest('hex')
-      const existing = db.prepare('SELECT id, fingerprint FROM requests WHERE request_key = ?')
       const respond = (record) =>
         record.fingerprint === fingerprint
           ? res.status(200).json({ id: record.id })
           : res.status(409).json({ error: 'This request reference was already used.' })
-      const previous = existing.get(key)
+      const previous = await inbox.find(key)
       if (previous) return respond(previous)
 
       const payload = validate(kind, req.body)
       const id = randomUUID()
-      const result = db.prepare(`
-        INSERT INTO requests (id, kind, request_key, fingerprint, payload, received_at)
-        VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(request_key) DO NOTHING
-      `).run(id, kind, key, fingerprint, JSON.stringify(payload), new Date().toISOString())
-      if (!result.changes) return respond(existing.get(key))
+      const stored = await inbox.insert(key, {
+        id, kind, fingerprint, payload, received_at: new Date().toISOString(),
+      })
+      if (!stored) return respond(await inbox.find(key))
       return res.status(201).json({ id })
     } catch (error) {
       if (error instanceof InvalidRequest) return res.status(422).json({ error: error.message })
