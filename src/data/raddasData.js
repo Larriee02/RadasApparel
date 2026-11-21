@@ -297,7 +297,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'wine',
     image: '/lookbook/agbada-wine.jpg',
     alt: 'Model wearing the Sovereign Wine Velvet 3-Piece Agbada with champagne gold bullion chest work',
-    price: 680000,
   },
   {
     id: 2,
@@ -319,7 +318,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'alabaster',
     image: '/lookbook/senator-alabaster.jpg',
     alt: 'Tailored Alabaster Irish Linen Senator tunic and matching trousers with imperial wine piping',
-    price: 385000,
   },
   {
     id: 3,
@@ -341,7 +339,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'burgundy',
     image: '/lookbook/suit-burgundy.jpg',
     alt: 'Burgundy peak-lapel Barathea wool double-breasted tuxedo outfit with black satin lapels',
-    price: 860000,
   },
   {
     id: 4,
@@ -363,7 +360,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'alabaster',
     image: '/lookbook/agbada-gold.jpg',
     alt: 'Model in Royal Alabaster Agbada featuring champagne gold bullion embroidery and tailored white trousers',
-    price: 950000,
   },
   {
     id: 5,
@@ -385,7 +381,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'wine',
     image: '/lookbook/senator-wine.jpg',
     alt: 'Imperial wine worsted wool asymmetric Senator tunic set with brass buttons and satin cuffs',
-    price: 460000,
   },
   {
     id: 6,
@@ -407,7 +402,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'alabaster',
     image: '/lookbook/tuxedo-ivory.jpg',
     alt: 'Alabaster double-breasted groom tuxedo jacket with burgundy peak lapels and black trousers',
-    price: 890000,
   },
   {
     id: 7,
@@ -429,7 +423,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'burgundy',
     image: '/lookbook/kaftan-bordeaux.jpg',
     alt: 'Bordeaux wool-silk menswear kaftan tunic with hand-embroidered champagne cuffs',
-    price: 420000,
   },
   {
     id: 8,
@@ -451,7 +444,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'linen',
     image: '/lookbook/kaftan-cream.jpg',
     alt: 'Warm cream Belgian linen kaftan outfit with deep wine geometric front placket embroidery',
-    price: 440000,
   },
   {
     id: 9,
@@ -473,7 +465,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'wine',
     image: '/lookbook/agbada-bordeaux.jpg',
     alt: 'Bordeaux hand-loomed Aso-Oke 3-piece Agbada with striped gold weave and structured fila cap',
-    price: 790000,
   },
   {
     id: 10,
@@ -495,7 +486,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'linen',
     image: '/lookbook/twopiece-linen.jpg',
     alt: 'Warm cream slub linen camp-collar shirt and high-waisted double-pleated resort trousers',
-    price: 320000,
   },
   {
     id: 11,
@@ -517,7 +507,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'wine',
     image: '/lookbook/agbada-wine.jpg',
     alt: 'Full-length deep wine velvet ceremonial Agbada outfit styled with matching embroidered cap',
-    price: 710000,
   },
   {
     id: 12,
@@ -539,7 +528,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'burgundy',
     image: '/lookbook/suit-burgundy.jpg',
     alt: 'Burgundy black-tie dinner jacket outfit paired with silk bow tie and evening trousers',
-    price: 880000,
   },
   {
     id: 13,
@@ -561,7 +549,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'alabaster',
     image: '/lookbook/senator-alabaster.jpg',
     alt: 'Minimalist Alabaster Irish linen Senator tunic and trousers styled outdoors',
-    price: 395000,
   },
   {
     id: 14,
@@ -583,7 +570,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'gold',
     image: '/lookbook/agbada-gold.jpg',
     alt: 'Off-white jacquard state reception Agbada with champagne gold chest embroidery',
-    price: 760000,
   },
   {
     id: 15,
@@ -605,7 +591,6 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'wine',
     image: '/lookbook/senator-wine.jpg',
     alt: 'Claret merino wool Senator outfit featuring slanted brass button placket and wine satin cuffs',
-    price: 475000,
   },
   {
     id: 16,
@@ -627,19 +612,20 @@ export const CURVED_GALLERY_ITEMS = [
     tone: 'alabaster',
     image: '/lookbook/tuxedo-ivory.jpg',
     alt: 'Full-length cream and burgundy peak-lapel double-breasted evening tuxedo ensemble',
-    price: 910000,
   },
 ];
 
 // 10 Orbit Hero Menswear Outfits arranged symmetrically in 5 orbital pairs (01H - 10H)
+export const GALLERY_PRODUCTS_BY_SKU = new Map(
+  CURVED_GALLERY_ITEMS.map((product) => [product.sku, product])
+);
+
 export const ORBIT_CARDS = [
   {
     id: 'orb-1',
     clock: '01H',
     title: 'Wine Velvet Agbada',
     code: 'RD-AGB-01',
-    price: 680000,
-    sku: 'RD-AGB-01 • ₦680,000',
     silhouette: 'agbada',
     tone: 'wine',
     image: '/lookbook/agbada-wine.jpg',
@@ -652,8 +638,6 @@ export const ORBIT_CARDS = [
     clock: '02H',
     title: 'Alabaster Senator Set',
     code: 'RD-SEN-04',
-    price: 385000,
-    sku: 'RD-SEN-04 • ₦385,000',
     silhouette: 'senator',
     tone: 'alabaster',
     image: '/lookbook/senator-alabaster.jpg',
@@ -668,8 +652,6 @@ export const ORBIT_CARDS = [
     clock: '03H',
     title: 'Burgundy Peak Dinner Suit',
     code: 'RD-WED-02',
-    price: 860000,
-    sku: 'RD-WED-02 • ₦860,000',
     silhouette: 'suit',
     tone: 'burgundy',
     image: '/lookbook/suit-burgundy.jpg',
@@ -682,8 +664,6 @@ export const ORBIT_CARDS = [
     clock: '04H',
     title: 'Bordeaux Bullion Kaftan',
     code: 'RD-KAF-08',
-    price: 420000,
-    sku: 'RD-KAF-08 • ₦420,000',
     silhouette: 'kaftan',
     tone: 'burgundy',
     image: '/lookbook/kaftan-bordeaux.jpg',
@@ -696,8 +676,6 @@ export const ORBIT_CARDS = [
     clock: '05H',
     title: 'Cream Embroidered Kaftan',
     code: 'RD-KAF-11',
-    price: 440000,
-    sku: 'RD-KAF-11 • ₦440,000',
     silhouette: 'kaftan',
     tone: 'linen',
     image: '/lookbook/kaftan-cream.jpg',
@@ -710,8 +688,6 @@ export const ORBIT_CARDS = [
     clock: '06H',
     title: 'Royal Gold Ceremonial Agbada',
     code: 'RD-AGB-09',
-    price: 950000,
-    sku: 'RD-AGB-09 • ₦950,000',
     silhouette: 'agbada',
     tone: 'alabaster',
     image: '/lookbook/agbada-gold.jpg',
@@ -724,8 +700,6 @@ export const ORBIT_CARDS = [
     clock: '07H',
     title: 'Ivory Peak-Lapel Tuxedo',
     code: 'RD-WED-06',
-    price: 890000,
-    sku: 'RD-WED-06 • ₦890,000',
     silhouette: 'suit',
     tone: 'alabaster',
     image: '/lookbook/tuxedo-ivory.jpg',
@@ -740,8 +714,6 @@ export const ORBIT_CARDS = [
     clock: '08H',
     title: 'Cream Linen Resort Two-Piece',
     code: 'RD-TWO-07',
-    price: 320000,
-    sku: 'RD-TWO-07 • ₦320,000',
     silhouette: 'twopiece',
     tone: 'linen',
     image: '/lookbook/twopiece-linen.jpg',
@@ -754,8 +726,6 @@ export const ORBIT_CARDS = [
     clock: '09H',
     title: 'Imperial Wine Senator Set',
     code: 'RD-SEN-12',
-    price: 460000,
-    sku: 'RD-SEN-12 • ₦460,000',
     silhouette: 'senator',
     tone: 'wine',
     image: '/lookbook/senator-wine.jpg',
@@ -768,8 +738,6 @@ export const ORBIT_CARDS = [
     clock: '10H',
     title: 'Oba Jacquard Aso-Oke Agbada',
     code: 'RD-AGB-05',
-    price: 790000,
-    sku: 'RD-AGB-05 • ₦790,000',
     silhouette: 'agbada',
     tone: 'burgundy',
     image: '/lookbook/agbada-bordeaux.jpg',
@@ -777,7 +745,10 @@ export const ORBIT_CARDS = [
     sizeClass: 'w-24 h-28 lg:w-28 lg:h-32',
     depth: 16,
   },
-];
+].map((card) => ({
+  ...card,
+  rtwPrice: GALLERY_PRODUCTS_BY_SKU.get(card.code).rtwPrice,
+}));
 
 export const ABOUT_METRICS = [
   {

@@ -169,6 +169,8 @@ function CatalogSection({ shouldReduceMotion, onAddToBag, onBookFitting }) {
                           mode === 'rtw'
                             ? onAddToBag({
                                 sku: item.sku,
+                                purchaseMode: 'rtw',
+                                size: 'L',
                                 name: item.name,
                                 mode: 'Ready-to-Wear • Size L',
                                 price: item.rtwPrice,

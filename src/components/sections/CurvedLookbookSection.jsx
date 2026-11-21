@@ -62,7 +62,7 @@ const CurvedLookbookPanel = React.memo(function CurvedLookbookPanel({
             ? 'border-2 border-[#FAF7F2] ring-2 ring-[#C8A97E]'
             : 'border border-[#C8A97E]/70 hover:border-[#FAF7F2]'
         }`}
-        title={`Open ${item.title} Full Outfit (${formatNaira(item.price)})`}
+        title={`Open ${item.title} Full Outfit (ready-to-wear ${formatNaira(item.rtwPrice)})`}
         aria-label={`Open ${item.title} full outfit in gallery`}
       >
         <GarmentVisual

@@ -122,8 +122,8 @@ function OrbitParallaxCard({
             ? 'border-[#C8A97E] ring-2 ring-[#5B0E24]/70'
             : 'border-[#FAF7F2] hover:border-[#C8A97E]'
         }`}
-        title={`${card.title} (${formatNaira(card.price)})`}
-        aria-label={`${card.title}, ${formatNaira(card.price)}`}
+        title={`${card.title} (ready-to-wear ${formatNaira(card.rtwPrice)})`}
+        aria-label={`${card.title}, ready-to-wear ${formatNaira(card.rtwPrice)}`}
       >
         <GarmentVisual
           image={card.image}
@@ -322,7 +322,7 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
                       ? 'border-[#C8A97E] ring-2 ring-[#5B0E24]/70'
                       : 'border-[#FAF7F2] hover:border-[#C8A97E]'
                   }`}
-                  aria-label={`${card.title}, ${formatNaira(card.price)}`}
+                  aria-label={`${card.title}, ready-to-wear ${formatNaira(card.rtwPrice)}`}
                 >
                   <GarmentVisual
                     image={card.image}
@@ -440,7 +440,7 @@ export function OrbitHero({ onOpenBespoke, onOpenGalleryOutfit }) {
           />
           <span className="text-[#5B0E24] font-semibold truncate">{activeCard.title}</span>
           <span className="text-[#1C1618]/45">&bull;</span>
-          <span className="tabular-nums font-medium shrink-0">{formatNaira(activeCard.price)}</span>
+          <span className="tabular-nums font-medium shrink-0">RTW {formatNaira(activeCard.rtwPrice)}</span>
         </button>
       </div>
     </section>

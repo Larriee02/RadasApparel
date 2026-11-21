@@ -4,3 +4,4 @@ dist-ssr/
 .taste-skill/
 *.local
 .DS_Store
+/var/

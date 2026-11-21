@@ -17,6 +17,7 @@ import {
   writeStoredCookiePrefs,
   writeStoredTapeMeasurements,
 } from './services/storageService'
+import { normalizeCartItem } from './services/cartService'
 import { OrbitHero } from './components/HeroTemplates'
 import HeaderNavbar from './components/layout/HeaderNavbar'
 import AtelierFooter from './components/layout/AtelierFooter'
@@ -44,13 +45,14 @@ export default function App() {
   const [cookiePrefs, setCookiePrefs] = useState(
     () => initialCookiePrefs || DEFAULT_COOKIE_PREFS
   )
-  const [cookiesSaved, setCookiesSaved] = useState(() => Boolean(initialCookiePrefs))
+  const [savedCookiePrefs, setSavedCookiePrefs] = useState(initialCookiePrefs)
+  const [cookiePromptOpen, setCookiePromptOpen] = useState(!initialCookiePrefs)
 
   // Client custom tape profile (shared between Section 01 and Fitting Modal)
   const [measurements, setMeasurements] = useState(() =>
     readStoredTapeMeasurements(
       SIGNATURE_BENTO.defaultMeasurements,
-      initialCookiePrefs?.measurements !== false
+      initialCookiePrefs?.measurements === true
     )
   )
 
@@ -70,16 +72,25 @@ export default function App() {
     writeStoredCartItems(bagItems)
   }, [bagItems])
 
-  // Persist custom tape profile when consent is granted
+  // Check the stored preference before writing so revocation in another tab takes effect.
   useEffect(() => {
-    writeStoredTapeMeasurements(measurements, cookiePrefs.measurements)
-  }, [measurements, cookiePrefs.measurements])
+    const optedIn = readStoredCookiePrefs()?.measurements === true
+    if (!optedIn || savedCookiePrefs?.measurements === true) {
+      writeStoredTapeMeasurements(measurements, optedIn)
+    }
+  }, [measurements, savedCookiePrefs])
 
   const persistCookiePreferences = useCallback((nextPrefs) => {
     const payload = writeStoredCookiePrefs(nextPrefs)
     setCookiePrefs(payload)
-    setCookiesSaved(true)
+    setSavedCookiePrefs(payload)
+    setCookiePromptOpen(false)
   }, [])
+
+  const openCookiePreferences = () => {
+    setCookiePrefs(readStoredCookiePrefs() || DEFAULT_COOKIE_PREFS)
+    setCookiePromptOpen(true)
+  }
 
   const currentChapter = ATELIER_CHAPTERS[activeChapterIdx] || ATELIER_CHAPTERS[0]
 
@@ -89,10 +100,10 @@ export default function App() {
   )
 
   const addToBag = useCallback((item) => {
-    setBagItems((prev) => [
-      ...prev,
-      { ...item, uid: `${item.sku}-${Date.now()}-${Math.random()}` },
-    ])
+    const uid = `${item.sku}-${Date.now()}-${Math.random()}`
+    const normalized = normalizeCartItem({ ...item, uid })
+    if (!normalized) return
+    setBagItems((prev) => [...prev, normalized])
     setBagOpen(true)
   }, [])
 
@@ -101,9 +112,8 @@ export default function App() {
   }, [])
 
   const openBespokeWithGarment = useCallback((garmentLabel) => {
-    if (typeof garmentLabel === 'string' && garmentLabel.trim()) {
-      setBespokeGarmentLabel(garmentLabel)
-    }
+    const label = typeof garmentLabel === 'string' && garmentLabel.trim()
+    setBespokeGarmentLabel(label || DEFAULT_FITTING_GARMENT)
     setBespokeModalOpen(true)
   }, [])
 
@@ -161,10 +171,10 @@ export default function App() {
     [selectedOutfitId, openOutfitInGallery, openPage, navigateHomeSection]
   )
 
-  const handleProceedFromBag = useCallback(() => {
-    setBagOpen(false)
-    openBespokeWithGarment(`${bagItems.length} Menswear Piece(s)`)
-  }, [bagItems.length, openBespokeWithGarment])
+  const removeSubmittedItems = useCallback((submittedIds) => {
+    const ids = new Set(submittedIds)
+    setBagItems((items) => items.filter((item) => !ids.has(item.uid)))
+  }, [])
 
   return (
     <MotionConfig reducedMotion="user">
@@ -323,28 +333,34 @@ export default function App() {
           )}
         </main>
 
-        <AtelierFooter onBookFitting={openBespokeWithGarment} />
-
-        <CartDrawer
-          open={bagOpen}
-          bagItems={bagItems}
-          bagTotal={bagTotal}
-          shouldReduceMotion={shouldReduceMotion}
-          onClose={() => setBagOpen(false)}
-          onRemoveItem={removeFromBag}
-          onProceedToBooking={handleProceedFromBag}
+        <AtelierFooter
+          onBookFitting={openBespokeWithGarment}
+          onCookieSettings={openCookiePreferences}
         />
 
-        <BespokeFittingModal
-          open={bespokeModalOpen}
-          initialGarment={bespokeGarmentLabel}
-          measurements={measurements}
-          shouldReduceMotion={shouldReduceMotion}
-          onClose={() => setBespokeModalOpen(false)}
-        />
+        {bagOpen && (
+          <CartDrawer
+            bagItems={bagItems}
+            bagTotal={bagTotal}
+            shouldReduceMotion={shouldReduceMotion}
+            onClose={() => setBagOpen(false)}
+            onRemoveItem={removeFromBag}
+            onSubmitted={removeSubmittedItems}
+          />
+        )}
+
+        {bespokeModalOpen && (
+          <BespokeFittingModal
+            initialGarment={bespokeGarmentLabel}
+            measurements={measurements}
+            shouldReduceMotion={shouldReduceMotion}
+            onClose={() => setBespokeModalOpen(false)}
+          />
+        )}
 
         <CookieConsentPopup
-          cookiesSaved={cookiesSaved}
+          open={cookiePromptOpen}
+          onDismiss={() => setCookiePromptOpen(false)}
           cookiePrefs={cookiePrefs}
           onChangePrefs={setCookiePrefs}
           onPersist={persistCookiePreferences}

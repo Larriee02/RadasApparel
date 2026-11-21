@@ -1,3 +1,4 @@
+import { normalizeCartItem } from './cartService'
 import {
   CART_STORAGE_KEY,
   COOKIE_STORAGE_KEY,
@@ -40,12 +41,11 @@ export function readStoredCookiePrefs() {
   if (!raw) return null
   try {
     const parsed = JSON.parse(raw)
-    if (!parsed || typeof parsed !== 'object') return null
+    if (!parsed || typeof parsed.measurements !== 'boolean') return null
     return {
       ...DEFAULT_COOKIE_PREFS,
       essential: true,
       measurements: Boolean(parsed.measurements),
-      analytics: Boolean(parsed.analytics),
     }
   } catch {
     return null
@@ -66,7 +66,7 @@ export function writeStoredCookiePrefs(nextPrefs) {
   if (typeof document !== 'undefined') {
     try {
       document.cookie = `radas_consent=${encodeURIComponent(
-        `essential:1|tape:${payload.measurements ? 1 : 0}|stage:${payload.analytics ? 1 : 0}`
+        `essential:1|tape:${payload.measurements ? 1 : 0}`
       )}; path=/; max-age=15552000; SameSite=Lax`
     } catch {
       // Ignore cookie write errors in restricted frames
@@ -83,7 +83,7 @@ export function readStoredCartItems() {
   if (!raw) return []
   try {
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed : []
+    return Array.isArray(parsed) ? parsed.map(normalizeCartItem).filter(Boolean) : []
   } catch {
     return []
   }

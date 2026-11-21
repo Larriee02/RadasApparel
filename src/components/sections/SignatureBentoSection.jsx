@@ -306,6 +306,9 @@ function SignatureBentoSection({
                 <div className="font-mono-spec text-xs uppercase tracking-[0.12em] text-[#5B0E24] mb-2.5">
                   Tape Measurements (Inches)
                 </div>
+                <p className="mb-3 text-xs text-[#1C1618]/80">
+                  These measurements are prefilled when you open a fitting request.
+                </p>
                 <div className="grid grid-cols-2 gap-2.5">
                   {Object.entries(measurements).map(([key, val]) => (
                     <label key={key} className="block">
@@ -338,11 +341,13 @@ function SignatureBentoSection({
               onClick={() =>
                 onAddToBag({
                   sku: SIGNATURE_BENTO.sku,
+                  purchaseMode: bentoMode,
+                  size: bentoMode === 'rtw' ? selectedRtwSize : null,
                   name: SIGNATURE_BENTO.title,
                   mode:
                     bentoMode === 'rtw'
                       ? `Ready-to-Wear • Size ${selectedRtwSize}`
-                      : `Custom Cut • Chest ${measurements.chest}, Shoulder ${measurements.shoulder}`,
+                      : 'Custom Cut Commission',
                   price:
                     bentoMode === 'rtw'
                       ? SIGNATURE_BENTO.rtwPrice

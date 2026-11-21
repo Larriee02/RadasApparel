@@ -6,7 +6,8 @@ import { DEFAULT_COOKIE_PREFS, UI_EASE } from '../../constants/storageKeys'
  * Floating cookie consent pop-up that disappears once preferences are accepted or saved.
  */
 export const CookieConsentPopup = React.memo(function CookieConsentPopup({
-  cookiesSaved,
+  open,
+  onDismiss,
   cookiePrefs,
   onChangePrefs,
   onPersist,
@@ -14,7 +15,7 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
 }) {
   return (
     <AnimatePresence>
-      {!cookiesSaved && (
+      {open && (
         <motion.aside
           aria-label="Radas Cookie Preferences"
           initial={
@@ -40,7 +41,7 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
             </div>
             <button
               type="button"
-              onClick={() => onPersist(cookiePrefs)}
+              onClick={onDismiss}
               aria-label="Dismiss cookie pop-up"
               className="px-2 py-0.5 text-[11px] font-mono-spec border border-[#C8A97E]/50 rounded-full hover:bg-[#5B0E24] cursor-pointer"
             >
@@ -49,8 +50,7 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
           </div>
 
           <p className="font-sans-ui text-[11px] sm:text-xs text-[#F2ECE1]/90 mt-1.5 sm:mt-2 leading-snug sm:leading-relaxed">
-            Browser cookies keep your cart items, 28-point tape measurements, and
-            lookbook position saved across pages.
+            Your bag is saved on this device. You can also choose to save your tape measurements.
           </p>
 
           <div className="mt-2 sm:mt-2.5 space-y-1 sm:space-y-1.5">
@@ -60,7 +60,7 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
                   Essential Cart &amp; Session
                 </div>
                 <div className="font-sans-ui text-[10px] text-[#F2ECE1]/70">
-                  Active for cart &amp; checkout
+                  Keeps items in your bag
                 </div>
               </div>
               <span className="px-2 py-0.5 rounded-full bg-[#C8A97E] text-[#1C1618] font-mono-spec text-[10px] font-bold">
@@ -68,62 +68,38 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
               </span>
             </div>
 
-            {[
-              {
-                key: 'measurements',
-                label: 'Tape Memory',
-                sub: 'Saves Chest, Shoulder & Sleeve entries',
-              },
-              {
-                key: 'analytics',
-                label: 'Lookbook Stage State',
-                sub: 'Saves preferred 3D view',
-              },
-            ].map((opt) => {
-              const checked = Boolean(cookiePrefs[opt.key])
-              return (
-                <label
-                  key={opt.key}
-                  className="flex items-center justify-between gap-2 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] bg-[#1C1618]/40 border border-[#C8A97E]/30 cursor-pointer hover:border-[#C8A97E]"
-                >
-                  <div>
-                    <div className="font-mono-spec text-[11px] text-[#FAF7F2]">
-                      {opt.label}
-                    </div>
-                    <div className="font-sans-ui text-[10px] text-[#F2ECE1]/70">
-                      {opt.sub}
-                    </div>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) =>
-                      onChangePrefs((prev) => ({
-                        ...prev,
-                        [opt.key]: e.target.checked,
-                      }))
-                    }
-                    className="w-4 h-4 accent-[#C8A97E] cursor-pointer shrink-0"
-                  />
-                </label>
-              )
-            })}
+            <label className="flex cursor-pointer items-center justify-between gap-2 rounded-[8px] border border-[#C8A97E]/30 bg-[#1C1618]/40 px-2.5 py-1.5">
+              <span>
+                <span className="block font-mono-spec text-[11px]">Tape Memory</span>
+                <span className="block font-sans-ui text-[10px] text-[#F2ECE1]/70">
+                  Saves chest, shoulder, and sleeve entries
+                </span>
+              </span>
+              <input
+                type="checkbox"
+                checked={cookiePrefs.measurements}
+                onChange={(event) =>
+                  onChangePrefs({ ...cookiePrefs, measurements: event.target.checked })
+                }
+                className="size-4 shrink-0 cursor-pointer accent-[#C8A97E]"
+              />
+            </label>
           </div>
 
-          <div className="mt-2 sm:mt-3 grid grid-cols-2 gap-1.5 sm:gap-2">
+          <div className="mt-2 sm:mt-3 grid grid-cols-1 min-[400px]:grid-cols-2 gap-1.5 sm:gap-2">
             <button
               type="button"
-              onClick={() => onPersist(DEFAULT_COOKIE_PREFS)}
+              onClick={() => onPersist({ ...DEFAULT_COOKIE_PREFS, measurements: true })}
               className="min-h-[34px] sm:min-h-[38px] px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-full bg-[#C8A97E] hover:bg-[#FAF7F2] text-[#1C1618] font-sans-ui text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
             >
-              Accept Cookies
+              Allow Tape Memory
             </button>
             <button
               type="button"
               onClick={() => onPersist(cookiePrefs)}
               className="min-h-[34px] sm:min-h-[38px] px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-full border border-[#C8A97E]/75 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer whitespace-nowrap"
             >
-              Save Cookies
+              Save Preferences
             </button>
           </div>
         </motion.aside>

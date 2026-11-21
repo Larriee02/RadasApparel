@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import useRequestSubmission from '../../hooks/useRequestSubmission'
 import { SALON_LOCATIONS } from '../../data/raddasData'
 import {
   CoutureTailorSeal,
@@ -18,7 +19,7 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
     subject: 'Private Fitting Inquiry',
     message: '',
   })
-  const [contactSubmitted, setContactSubmitted] = useState(false)
+  const { id, error, pending, submit, reset } = useRequestSubmission('concierge')
 
   return (
     <section
@@ -103,7 +104,7 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
               guidance before ordering in Naira (₦).
             </p>
 
-            {contactSubmitted ? (
+            {id ? (
               <div className="my-8 p-6 bg-[#FAF7F2] border-2 border-[#5B0E24] text-center space-y-3">
                 <CoutureTailorSeal
                   size="md"
@@ -113,15 +114,14 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
                 <h4 className="font-serif-display text-2xl font-semibold text-[#5B0E24]">
                   Inquiry Received for {contactForm.salon}
                 </h4>
-                <p className="font-sans-ui text-xs sm:text-sm text-[#1C1618]/85 max-w-md mx-auto">
-                  Thank you, {contactForm.fullName || 'Client'}. Your note regarding{' '}
-                  <strong>{contactForm.subject}</strong> has been logged for response
-                  within one business day.
+                <p role="status" className="font-sans-ui text-xs sm:text-sm text-[#1C1618]/85 max-w-md mx-auto">
+                  Thank you, {contactForm.fullName}. The workroom received your message.
+                  Reference {id}.
                 </p>
                 <button
                   type="button"
                   onClick={() => {
-                    setContactSubmitted(false)
+                    reset()
                     setContactForm((f) => ({ ...f, message: '' }))
                   }}
                   className="min-h-[40px] px-5 py-2 bg-[#5B0E24] text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider cursor-pointer"
@@ -133,102 +133,106 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  setContactSubmitted(true)
+                  void submit(contactForm)
                 }}
                 className="mt-5 space-y-4"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <fieldset disabled={pending} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label className="block">
+                      <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                        Your Name
+                      </span>
+                      <input
+                        required
+                        type="text"
+                        value={contactForm.fullName}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, fullName: e.target.value }))
+                        }
+                        placeholder="Full Name"
+                        className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
+                      />
+                    </label>
+                    <label className="block">
+                      <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                        Email Address
+                      </span>
+                      <input
+                        required
+                        type="email"
+                        value={contactForm.email}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, email: e.target.value }))
+                        }
+                        placeholder="client@domain.example"
+                        className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
+                      />
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label className="block">
+                      <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                        Preferred Salon
+                      </span>
+                      <select
+                        value={contactForm.salon}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, salon: e.target.value }))
+                        }
+                        className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
+                      >
+                        <option>Lagos Flagship Salon</option>
+                        <option>London Private Fitting Suite</option>
+                        <option>Worldwide Online Order Desk</option>
+                      </select>
+                    </label>
+                    <label className="block">
+                      <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                        Inquiry Subject
+                      </span>
+                      <select
+                        value={contactForm.subject}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, subject: e.target.value }))
+                        }
+                        className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
+                      >
+                        <option>Private Fitting Inquiry</option>
+                        <option>Wedding Party &amp; Aso-Ebi Menswear</option>
+                        <option>Ready-to-Wear Size Guidance</option>
+                        <option>International Courier Dispatch</option>
+                      </select>
+                    </label>
+                  </div>
+
                   <label className="block">
                     <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                      Your Name
+                      Message
                     </span>
-                    <input
+                    <textarea
                       required
-                      type="text"
-                      value={contactForm.fullName}
+                      rows={3}
+                      value={contactForm.message}
                       onChange={(e) =>
-                        setContactForm((f) => ({ ...f, fullName: e.target.value }))
+                        setContactForm((f) => ({ ...f, message: e.target.value }))
                       }
-                      placeholder="Full Name"
+                      placeholder="Share garment SKU, ceremony date, or fitting preference..."
                       className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
                     />
                   </label>
-                  <label className="block">
-                    <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                      Email Address
-                    </span>
-                    <input
-                      required
-                      type="email"
-                      value={contactForm.email}
-                      onChange={(e) =>
-                        setContactForm((f) => ({ ...f, email: e.target.value }))
-                      }
-                      placeholder="client@domain.example"
-                      className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
-                    />
-                  </label>
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <label className="block">
-                    <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                      Preferred Salon
-                    </span>
-                    <select
-                      value={contactForm.salon}
-                      onChange={(e) =>
-                        setContactForm((f) => ({ ...f, salon: e.target.value }))
-                      }
-                      className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
-                    >
-                      <option>Lagos Flagship Salon</option>
-                      <option>London Private Fitting Suite</option>
-                      <option>Worldwide Online Order Desk</option>
-                    </select>
-                  </label>
-                  <label className="block">
-                    <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                      Inquiry Subject
-                    </span>
-                    <select
-                      value={contactForm.subject}
-                      onChange={(e) =>
-                        setContactForm((f) => ({ ...f, subject: e.target.value }))
-                      }
-                      className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
-                    >
-                      <option>Private Fitting Inquiry</option>
-                      <option>Wedding Party &amp; Aso-Ebi Menswear</option>
-                      <option>Ready-to-Wear Size Guidance</option>
-                      <option>International Courier Dispatch</option>
-                    </select>
-                  </label>
-                </div>
-
-                <label className="block">
-                  <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                    Message
-                  </span>
-                  <textarea
-                    required
-                    rows={3}
-                    value={contactForm.message}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, message: e.target.value }))
-                    }
-                    placeholder="Share garment SKU, ceremony date, or fitting preference..."
-                    className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
-                  />
-                </label>
-
-                <motion.button
-                  type="submit"
-                  whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
-                  className="w-full min-h-[46px] py-3.5 px-6 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-xs font-semibold uppercase tracking-[0.12em] transition-colors cursor-pointer"
-                >
-                  Send Message to Radas Workroom &rarr;
-                </motion.button>
+                  {error && <p role="alert" className="text-sm text-[#5B0E24]">{error}</p>}
+                  <motion.button
+                    type="submit"
+                    disabled={pending}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+                    className="w-full min-h-[46px] py-3.5 px-6 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-xs font-semibold uppercase tracking-[0.12em] transition-colors cursor-pointer"
+                  >
+                    {pending ? 'Sending…' : 'Send Message to Radas Workroom →'}
+                  </motion.button>
+                </fieldset>
               </form>
             )}
           </div>

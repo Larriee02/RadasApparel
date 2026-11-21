@@ -10,14 +10,13 @@ export const NAV_ITEMS = [
   { id: 'gallery', label: 'Gallery' },
 ]
 
-export const COOKIE_STORAGE_KEY = 'radas_cookie_prefs_v2'
+export const COOKIE_STORAGE_KEY = 'radas_cookie_prefs_v3'
 export const CART_STORAGE_KEY = 'radas_cart_items_v1'
 export const TAPE_STORAGE_KEY = 'radas_tape_measurements_v1'
 
 export const DEFAULT_COOKIE_PREFS = {
   essential: true,
-  measurements: true,
-  analytics: true,
+  measurements: false,
 }
 
 export const DEFAULT_FITTING_GARMENT = 'Sovereign Wine Velvet 3-Piece Agbada (RD-AGB-01)'

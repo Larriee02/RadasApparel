@@ -281,6 +281,8 @@ function GalleryPage({
                 onClick={() =>
                   onAddToBag({
                     sku: selectedOutfit.sku,
+                    purchaseMode: galleryPurchaseMode,
+                    size: galleryPurchaseMode === 'rtw' ? galleryRtwSize : null,
                     name: selectedOutfit.title,
                     mode:
                       galleryPurchaseMode === 'rtw'
