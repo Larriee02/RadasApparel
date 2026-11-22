@@ -141,7 +141,7 @@ export function OrbitHero({ onOpenGalleryOutfit }) {
       onMouseLeave={handleMouseLeave}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleMouseLeave}
-      className="relative house-hero text-[#FAF7F2] py-3.5 sm:py-5 md:py-6 md:min-h-[590px] md:h-[calc(100svh-68px)] md:max-h-[710px] overflow-hidden border-b border-[#C8A97E]/40 flex flex-col justify-between"
+      className="relative house-hero text-[#5B0E24] py-3.5 sm:py-5 md:py-6 md:min-h-[590px] md:h-[calc(100svh-68px)] md:max-h-[710px] overflow-hidden border-b border-[#C8A97E]/40 flex flex-col justify-between"
     >
       {/* Main 1280px 3D Spatial Orbit Stage */}
       <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-0 sm:px-6 md:px-10 min-h-[420px] sm:min-h-[540px] md:min-h-0 flex items-center justify-center my-0.5 md:my-1 perspective-stage">
@@ -232,7 +232,7 @@ export function OrbitHero({ onOpenGalleryOutfit }) {
           <div className="relative z-10">
             <h1
               id="hero-orbit-h1"
-              className="font-serif-display text-[1.55rem] sm:text-3xl md:text-[3.8rem] font-medium text-[#FAF7F2] leading-[1.02] md:leading-[0.96] tracking-[-0.02em]"
+              className="font-serif-display text-[1.55rem] sm:text-3xl md:text-[3.8rem] font-medium text-[#5B0E24] leading-[1.02] md:leading-[0.96] tracking-[-0.02em]"
             >
               <MaskLine delay={0} reduceMotion={reduceMotion}>
                 Menswear,
@@ -250,7 +250,7 @@ export function OrbitHero({ onOpenGalleryOutfit }) {
                 whileHover={reduceMotion ? undefined : { y: -1 }}
                 whileTap={reduceMotion ? undefined : { y: 1, scale: 0.985 }}
                 transition={{ duration: 0.12, ease: EASE_UI }}
-                className="px-2.5 sm:px-5 min-h-[28px] sm:min-h-[44px] rounded-full bg-[#FAF7F2] hover:bg-white text-[#5B0E24] border border-[#C8A97E]/50 font-sans-ui text-[9px] sm:text-xs font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em] shadow-md transition-colors cursor-pointer whitespace-nowrap"
+                className="px-2.5 sm:px-5 min-h-[28px] sm:min-h-[44px] rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] border border-[#C8A97E]/50 font-sans-ui text-[9px] sm:text-xs font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em] shadow-md transition-colors cursor-pointer whitespace-nowrap"
               >
                 Explore Lookbook
               </motion.button>

@@ -240,7 +240,7 @@
 .atelier-details:last-child { margin-bottom: 3rem; }
 
 :root { --house-wine: #5b0e24; --house-paper: #faf7f2; }
-.house-hero { background: radial-gradient(ellipse at center, #76213b, var(--house-wine) 70%); }
+.house-hero { background: var(--house-paper); }
 .house-masthead { background: var(--house-wine); color: var(--house-paper); }
 .house-masthead > div {
   display: flex; align-items: end; justify-content: space-between; gap: 1.5rem;
