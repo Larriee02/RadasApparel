@@ -264,7 +264,6 @@ export default function App() {
                 <MaterialsSection />
               </details>
               <CurvedLookbookSection
-                shouldReduceMotion={shouldReduceMotion}
                 onOpenOutfitInGallery={openOutfitInGallery}
               />
             </>
