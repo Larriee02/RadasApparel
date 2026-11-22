@@ -278,6 +278,10 @@ export default function App() {
 
         {bagOpen && (
           <CartDrawer
+            onBrowse={() => {
+              setBagOpen(false)
+              navigateHomeSection('collections')
+            }}
             bagItems={bagItems}
             bagTotal={bagTotal}
             shouldReduceMotion={shouldReduceMotion}

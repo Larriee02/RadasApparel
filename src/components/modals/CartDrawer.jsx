@@ -14,6 +14,7 @@ function CartDrawer({
   bagTotal,
   shouldReduceMotion,
   onClose,
+  onBrowse,
   onRemoveItem,
   onSubmitted,
 }) {
@@ -56,93 +57,78 @@ function CartDrawer({
         initial={shouldReduceMotion ? { x: 0 } : { x: '100%' }}
         animate={{ x: 0 }}
         transition={{ duration: 0.28, ease: UI_EASE }}
-        className="w-full max-w-md bg-[#FAF7F2] h-full overflow-y-auto border-l-2 border-[#1C1618] p-6 flex flex-col justify-between shadow-2xl"
+        className="cart-sheet"
       >
-        <div>
-          <div className="dialog-heading flex items-center justify-between">
-            <div>
-              <span className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#5B0E24]">
-                Radas Apparel
-              </span>
-              <h3 ref={headingRef} tabIndex={-1} className="font-serif-display text-2xl font-semibold">
-                {id ? 'Order Request Received' : review ? 'Order Review' : `Your Cart (${bagItems.length})`}
-              </h3>
-            </div>
-            <button
-              type="button"
-              data-dialog-initial-focus
-              aria-disabled={pending}
-              onClick={close}
-              className="min-h-[38px] px-3 py-1 border border-[#1C1618] font-mono-spec text-xs hover:bg-[#1C1618] hover:text-[#FAF7F2] transition-colors cursor-pointer"
-            >
-              Close
-            </button>
+        <header className="cart-heading">
+          <div>
+            <img src="/monogram-wine.png" alt="" width="28" height="24" />
+            <h2 ref={headingRef} tabIndex={-1} className="font-serif-display">
+              {id ? 'Request received' : review ? 'Order review' : 'Your cart'}
+            </h2>
           </div>
+          <button type="button" data-dialog-initial-focus aria-label="Close cart"
+            aria-disabled={pending} onClick={close} className="cart-close">×</button>
+        </header>
 
-          {id ? (
-            <p role="status" className="mt-6 break-words text-sm">
-              The workroom received your order request. Reference {id}.
-            </p>
-          ) : bagItems.length === 0 ? (
-            <div className="py-16 text-center space-y-3">
-              <img
-                src="/monogram-wine.png"
-                alt="Radas Apparel"
-                className="w-12 h-12 mx-auto opacity-60 object-contain"
-              />
-              <p className="font-serif-display text-xl text-[#5B0E24]">
-                Your cart is empty.
-              </p>
-              <p className="font-sans-ui text-xs text-[#1C1618]/75">
-                Select a men&apos;s outfit size or book a custom fitting commission.
-              </p>
+        {id ? (
+          <p role="status" className="mt-6 break-words text-sm">
+            The workroom received your order request. Reference {id}.
+          </p>
+        ) : bagItems.length === 0 ? (
+          <div className="cart-empty">
+            <img src="/lookbook/suit-burgundy.jpg" alt="Burgundy dinner jacket from the Radas collection" />
+            <div className="cart-empty-caption">
+              <p className="font-serif-display">Your cart is empty.</p>
+              <button type="button" onClick={onBrowse}>
+                Explore the collection <span aria-hidden="true">→</span>
+              </button>
             </div>
-          ) : (
-            <ul className="divide-y divide-[#C8A97E]/40 mt-4">
-              {bagItems.map((item) => (
-                <li key={item.uid} className="py-4 flex items-center gap-4">
-                  <div className="w-16 h-20 border border-[#1C1618] overflow-hidden shrink-0">
-                    <GarmentVisual
-                      image={item.image}
-                      alt={item.name}
-                      silhouette={item.silhouette}
-                      tone={item.tone}
-                      className="w-full h-full"
-                    />
+          </div>
+        ) : (
+          <ul className="divide-y divide-[#C8A97E]/50">
+            {bagItems.map((item) => (
+              <li key={item.uid} className="py-4 flex items-center gap-4">
+                <div className="w-16 h-24 rounded-sm overflow-hidden shrink-0">
+                  <GarmentVisual
+                    image={item.image}
+                    alt={item.name}
+                    silhouette={item.silhouette}
+                    tone={item.tone}
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-mono-spec text-xs text-[#5B0E24]">
+                    {item.sku}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-mono-spec text-xs text-[#5B0E24]">
-                      {item.sku}
-                    </div>
-                    <div className="font-serif-display text-lg font-semibold truncate">
-                      {item.name}
-                    </div>
-                    <div className="font-mono-spec text-xs text-[#1C1618]/75">
-                      {item.mode}
-                    </div>
+                  <div className="font-serif-display text-xl leading-tight">
+                    {item.name}
                   </div>
-                  <div className="text-right shrink-0">
-                    <div className="font-serif-display text-xl font-bold text-[#5B0E24] tabular-nums">
-                      {formatNaira(item.price)}
-                    </div>
-                    {!review && (
-                      <button
-                        type="button"
-                        onClick={() => onRemoveItem(item.uid)}
-                        className="font-mono-spec text-xs underline text-[#1C1618]/70 hover:text-[#5B0E24] cursor-pointer mt-1"
-                      >
-                        Remove
-                      </button>
-                    )}
+                  <div className="font-mono-spec text-xs text-[#1C1618]/75">
+                    {item.mode}
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="font-serif-display text-xl font-bold text-[#5B0E24] tabular-nums">
+                    {formatNaira(item.price)}
+                  </div>
+                  {!review && (
+                    <button
+                      type="button"
+                      onClick={() => onRemoveItem(item.uid)}
+                      className="font-mono-spec text-xs underline text-[#1C1618]/70 hover:text-[#5B0E24] cursor-pointer mt-1"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
 
-        {!id && (
-          <div className="pt-4 border-t border-[#1C1618]">
+        {!id && bagItems.length > 0 && (
+          <div className="cart-summary">
             <div className="flex items-center justify-between mb-4">
               <span className="font-mono-spec text-xs uppercase tracking-wider">Cart Subtotal</span>
               <span className="font-serif-display text-3xl font-bold text-[#5B0E24] tabular-nums">
@@ -175,7 +161,6 @@ function CartDrawer({
             ) : (
               <button
                 type="button"
-                disabled={bagItems.length === 0}
                 ref={proceedRef}
                 onClick={() => setReview(true)}
                 className="w-full min-h-[46px] py-3.5 px-4 bg-[#5B0E24] disabled:opacity-40 hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-xs font-semibold uppercase tracking-[0.12em] transition-colors cursor-pointer"
