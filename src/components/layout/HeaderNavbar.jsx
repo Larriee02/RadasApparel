@@ -16,7 +16,7 @@ function HeaderNavbar({
   onOpenBag,
 }) {
   return (
-    <header className="sticky top-0 z-50 bg-[#38232A] text-[#FAF7F2] border-b border-[#FAF7F2]/15">
+    <header className="sticky top-0 z-50 bg-[#410d20] text-[#FAF7F2] border-b border-[#FAF7F2]/15">
       <div className="max-w-[1280px] mx-auto px-3 sm:px-6 md:px-10 py-2 md:py-3">
         {/* Primary Top Bar: Brand Left, 4 Links Center (Desktop), Book Fitting & Cart Top-Right */}
         <div className="flex items-center justify-between gap-2 sm:gap-4">

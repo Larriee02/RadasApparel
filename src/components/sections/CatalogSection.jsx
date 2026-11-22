@@ -7,9 +7,7 @@ import {
 } from '../../data/raddasData'
 import { UI_EASE } from '../../constants/storageKeys'
 import {
-  ExoticFiligreeCorners,
   GarmentVisual,
-  Tilt3DCard,
 } from '../AtelierVisuals'
 
 /**
@@ -36,10 +34,10 @@ function CatalogSection({ shouldReduceMotion, onAddToBag, onBookFitting }) {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 sm:gap-6 mb-8 sm:mb-10">
           <div>
             <span className="font-mono-spec text-xs uppercase tracking-[0.18em] text-[#5B0E24]">
-              02 • Ready-to-Wear &amp; Made-to-Measure Menswear
+              Ready-to-wear &amp; bespoke
             </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-[#5B0E24] mt-1">
-              The Menswear <span className="italic">House Catalog</span>
+              The collection
             </h2>
           </div>
 
@@ -79,11 +77,11 @@ function CatalogSection({ shouldReduceMotion, onAddToBag, onBookFitting }) {
             const price = mode === 'rtw' ? item.rtwPrice : item.bespokePrice
 
             return (
-              <Tilt3DCard key={item.id} intensity={7}>
-                <article className="bg-[#F2ECE1] editorial-border h-full flex flex-col justify-between card-3d-shadow">
+              <div key={item.id}>
+                <article className="bg-white border-b border-[#5B0E24]/25 h-full flex flex-col justify-between">
                   {/* Exotic Burgundy Velvet Arch Frame (Zero Overlaid Captions on Garment Photo) */}
                   <div className="relative h-88 px-5 pt-5 pb-0 overflow-hidden border-b-2 border-[#1C1618] velvet-damask-bg">
-                    <ExoticFiligreeCorners variant="gold" size={18} />
+
                     <div
                       className="w-full h-full overflow-hidden border-t-2 border-x-2 border-[#C8A97E] shadow-xl bg-[#3A0716]"
                       style={{
@@ -189,7 +187,7 @@ function CatalogSection({ shouldReduceMotion, onAddToBag, onBookFitting }) {
                     </div>
                   </div>
                 </article>
-              </Tilt3DCard>
+              </div>
             )
           })}
         </div>

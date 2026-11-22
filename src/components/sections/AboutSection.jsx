@@ -1,11 +1,5 @@
 import React from 'react'
 import { ABOUT_METRICS } from '../../data/raddasData'
-import {
-  CoutureTailorSeal,
-  ExoticFiligreeCorners,
-  GarmentVisual,
-  Tilt3DCard,
-} from '../AtelierVisuals'
 
 /**
  * Section 06 (and standalone About Us route) — House heritage & tailoring metrics.
@@ -23,50 +17,17 @@ function AboutSection({ isStandalone = false, onBookFitting, onOpenPage }) {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           <div className="lg:col-span-5">
-            <Tilt3DCard intensity={6}>
-              <div className="relative bg-[#3A0716] velvet-damask-bg editorial-border p-4 sm:p-5 pb-0 card-3d-shadow">
-                <ExoticFiligreeCorners variant="gold" size={18} />
-                <div
-                  className="relative h-72 sm:h-96 overflow-hidden border-t-2 border-x-2 border-[#C8A97E] shadow-2xl"
-                  style={{
-                    borderTopLeftRadius: '140px',
-                    borderTopRightRadius: '140px',
-                  }}
-                >
-                  <GarmentVisual
-                    image="/lookbook/atelier-craft.jpg"
-                    alt="Radas master tailor cutting wine velvet cloth at the Victoria Island cutting table"
-                    silhouette="agbada"
-                    tone="wine"
-                    zoomOnHover
-                    eager
-                    className="w-full h-full"
-                  />
-                </div>
-                <div className="py-4 px-2 flex items-center justify-between gap-3 text-[#FAF7F2]">
-                  <div>
-                    <div className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#C8A97E]">
-                      Victoria Island Workroom
-                    </div>
-                    <div className="font-serif-display text-lg font-medium">
-                      Pattern Cutting &amp; Hand Zari Embroidery
-                    </div>
-                  </div>
-                  <CoutureTailorSeal
-                    size="sm"
-                    variant="gold"
-                    label="RADAS • ESTABLISHED IN LAGOS • "
-                  />
-                </div>
-              </div>
-            </Tilt3DCard>
+            <figure>
+              <img className="house-portrait" src="/lookbook/atelier-craft.jpg" alt="Tailor marking wine velvet in the Victoria Island workroom" />
+              <figcaption>Victoria Island workroom, Lagos</figcaption>
+            </figure>
           </div>
 
           <div className="lg:col-span-7 space-y-6">
             <div>
               <span className="font-mono-spec text-xs uppercase tracking-[0.18em] text-[#5B0E24]">
                 {isStandalone
-                  ? 'House Heritage & Tailoring Standards'
+                  ? 'Our workrooms'
                   : '06 • About Radas Apparel'}
               </span>
               <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-[#5B0E24] mt-1 leading-tight">
@@ -104,9 +65,9 @@ function AboutSection({ isStandalone = false, onBookFitting, onOpenPage }) {
               {ABOUT_METRICS.map((metric) => (
                 <div
                   key={metric.label}
-                  className="relative bg-[#FAF7F2] editorial-border p-4 card-3d-shadow"
+                  className="border-t border-[#5B0E24]/35 pt-4"
                 >
-                  <ExoticFiligreeCorners variant="wine" size={14} />
+
                   <div className="font-serif-display text-3xl font-bold text-[#5B0E24]">
                     {metric.figure}
                   </div>

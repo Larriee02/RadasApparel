@@ -7,7 +7,6 @@ import {
 } from '../../data/raddasData'
 import { RTW_SIZES } from '../../constants/storageKeys'
 import {
-  ExoticFiligreeCorners,
   Exploded3DGarmentStudio,
   GarmentVisual,
   Tilt3DCard,
@@ -58,52 +57,17 @@ function GalleryPage({
       aria-labelledby="gallery-page-title"
       className="bg-[#FAF7F2] text-[#1C1618] pb-20"
     >
-      {/* Top Sub-Header & Filter Strip */}
-      <div className="bg-[#F2ECE1] border-b border-[#C8A97E]/60 py-5 sm:py-6">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <button
-              type="button"
-              onClick={onBackToLookbook}
-              className="min-h-[38px] sm:min-h-[40px] px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#FAF7F2] border border-[#1C1618] hover:bg-[#1C1618] hover:text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
-            >
-              &larr; Back to Lookbook
-            </button>
-            <div>
-              <span className="font-mono-spec text-[11px] sm:text-xs uppercase tracking-[0.14em] text-[#5B0E24] block">
-                Radas Apparel &bull; Outfit Gallery
-              </span>
-              <h1
-                id="gallery-page-title"
-                className="font-serif-display text-2xl sm:text-4xl font-semibold text-[#5B0E24] leading-tight"
-              >
-                Complete Silhouette Dossiers (16 Looks)
-              </h1>
-            </div>
-          </div>
-
-          {/* Prev / Next Outfit Stepping */}
-          <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => stepGalleryOutfit(-1)}
-              className="min-h-[40px] px-3.5 sm:px-4 py-2 rounded-full border border-[#5B0E24] text-[#5B0E24] hover:bg-[#5B0E24] hover:text-[#FAF7F2] font-mono-spec text-xs transition-colors cursor-pointer"
-            >
-              &larr; Prev Outfit
-            </button>
-            <span className="font-mono-spec text-xs px-2 sm:px-3 text-[#1C1618]/80">
-              Look {String(selectedOutfit.id).padStart(2, '0')} / 16
-            </span>
-            <button
-              type="button"
-              onClick={() => stepGalleryOutfit(1)}
-              className="min-h-[40px] px-3.5 sm:px-4 py-2 rounded-full border border-[#5B0E24] text-[#5B0E24] hover:bg-[#5B0E24] hover:text-[#FAF7F2] font-mono-spec text-xs transition-colors cursor-pointer"
-            >
-              Next Outfit &rarr;
-            </button>
+      <header className="house-masthead">
+        <div>
+          <h1 id="gallery-page-title">The outfit gallery</h1>
+          <div className="gallery-navigation">
+            <button onClick={onBackToLookbook}>Back to lookbook</button>
+            <button aria-label="Previous outfit" onClick={() => stepGalleryOutfit(-1)}>←</button>
+            <span>Look {selectedOutfit.id} of {CURVED_GALLERY_ITEMS.length}</span>
+            <button aria-label="Next outfit" onClick={() => stepGalleryOutfit(1)}>→</button>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Full-Outfit Spotlight (#gallery-spotlight) */}
       <div
@@ -150,8 +114,8 @@ function GalleryPage({
               </div>
             ) : (
               <Tilt3DCard intensity={5}>
-                <div className="relative h-[420px] sm:h-[580px] velvet-damask-bg editorial-border p-4 sm:p-5 pb-0 card-3d-shadow flex flex-col justify-end">
-                  <ExoticFiligreeCorners variant="gold" size={20} />
+                <div className="relative h-[420px] sm:h-[580px] bg-[#5B0E24] p-4 sm:p-5 pb-0  flex flex-col justify-end">
+
                   <div
                     className="w-full h-full overflow-hidden border-t-2 border-x-2 border-[#C8A97E] shadow-2xl bg-[#2B0510]"
                     style={{
@@ -176,8 +140,8 @@ function GalleryPage({
           </div>
 
           {/* Right 6 Columns: Complete Outfit Breakdown, Included Pieces & Order Controls */}
-          <div className="relative lg:col-span-6 bg-[#F2ECE1] editorial-border p-6 md:p-8 card-3d-shadow flex flex-col justify-between">
-            <ExoticFiligreeCorners variant="wine" size={20} />
+          <div className="relative lg:col-span-6 bg-white border border-[#5B0E24]/15 p-6 md:p-8  flex flex-col justify-between">
+
             <div className="relative z-10">
               <div className="inline-block px-3 py-1 bg-[#5B0E24] text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-[0.14em] mb-3">
                 Full Ensemble Breakdown &bull; {selectedOutfit.sku}
@@ -357,12 +321,12 @@ function GalleryPage({
                     const spot = document.getElementById('gallery-spotlight')
                     if (spot) spot.scrollIntoView({ behavior: 'smooth' })
                   }}
-                  className={`w-full text-left bg-[#F2ECE1] editorial-border h-full flex flex-col justify-between card-3d-shadow cursor-pointer transition-colors ${
+                  className={`w-full text-left bg-white border border-[#5B0E24]/15 h-full flex flex-col justify-between  cursor-pointer transition-colors ${
                     isCurrent ? 'ring-2 ring-[#5B0E24]' : ''
                   }`}
                 >
                   <div className="relative h-52 sm:h-72 px-2.5 sm:px-4 pt-3 sm:pt-4 pb-0 velvet-damask-bg border-b-2 border-[#1C1618]">
-                    <ExoticFiligreeCorners variant="gold" size={12} />
+
                     <div
                       className="w-full h-full overflow-hidden border-t-2 border-x-2 border-[#C8A97E] bg-[#3A0716]"
                       style={{

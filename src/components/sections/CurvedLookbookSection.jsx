@@ -133,7 +133,7 @@ function CurvedLookbookSection({ shouldReduceMotion, onOpenOutfitInGallery }) {
   return (
     <section
       id="curved-wall"
-      className="scroll-mt-32 md:scroll-mt-24 bg-[#38232A] text-[#FAF7F2] py-12 sm:py-14 md:py-20 overflow-hidden border-y-2 border-[#C8A97E]/55"
+      className="scroll-mt-32 md:scroll-mt-24 bg-[#5B0E24] text-[#FAF7F2] py-12 sm:py-14 md:py-20 overflow-hidden border-y-2 border-[#C8A97E]/55"
     >
       <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8">
         {/* Top Center Headline nestled inside the upper hollow of the concave curve */}

@@ -4,8 +4,6 @@ import useRequestSubmission from '../../hooks/useRequestSubmission'
 import { SALON_LOCATIONS } from '../../data/raddasData'
 import {
   CoutureTailorSeal,
-  ExoticFiligreeCorners,
-  Tilt3DCard,
 } from '../AtelierVisuals'
 
 /**
@@ -46,58 +44,24 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        <div className="lg:col-span-5 flex flex-col justify-between gap-5">
-          {SALON_LOCATIONS.map((loc) => (
-            <Tilt3DCard key={loc.city} intensity={5}>
-              <div className="relative h-full bg-[#3A0716] velvet-damask-bg text-[#FAF7F2] editorial-border p-6 card-3d-shadow flex flex-col justify-between">
-                <ExoticFiligreeCorners variant="gold" size={16} />
-                <div className="relative z-10 space-y-2">
-                  <span className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#C8A97E]">
-                    Radas Apparel Salon
-                  </span>
-                  <h3 className="font-serif-display text-2xl font-semibold text-[#FAF7F2]">
-                    {loc.city}
-                  </h3>
-                  <p className="font-sans-ui text-sm text-[#F2ECE1]/90">{loc.address}</p>
-                  <div className="pt-2 border-t border-[#C8A97E]/25 font-mono-spec text-xs text-[#C8A97E]">
-                    {loc.hours}
-                  </div>
-                  <p className="font-sans-ui text-xs text-[#F2ECE1]/80 leading-relaxed">
-                    {loc.services}
-                  </p>
-                </div>
-              </div>
-            </Tilt3DCard>
+        <aside className="salon-directory lg:col-span-5">
+          <h2>Visit a salon</h2>
+          {SALON_LOCATIONS.map((salon) => (
+            <article key={salon.city}>
+              <h3>{salon.city}</h3>
+              <p>{salon.address}</p>
+              <p>{salon.hours}</p>
+              <small>{salon.services}</small>
+            </article>
           ))}
-
-          <div className="bg-[#F2ECE1] editorial-border p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <div className="font-mono-spec text-xs uppercase tracking-wider text-[#5B0E24]">
-                Direct Client Desk
-              </div>
-              <div className="font-mono-spec text-xs text-[#1C1618] mt-0.5">
-                concierge@radasapparel.example
-              </div>
-              <div className="font-mono-spec text-xs text-[#1C1618]/75">
-                fittings@radasapparel.example
-              </div>
-            </div>
-            <CoutureTailorSeal
-              size="sm"
-              variant="wine"
-              label="LAGOS • LONDON • CONCIERGE • "
-            />
-          </div>
-        </div>
-
-        <div className="relative lg:col-span-7 bg-[#F2ECE1] editorial-border p-6 md:p-8 card-3d-shadow flex flex-col justify-between">
-          <ExoticFiligreeCorners variant="wine" size={18} />
+        </aside>
+        <div className="lg:col-span-7 bg-white border border-[#5B0E24]/15 p-6 md:p-10">
           <div className="relative z-10">
             <div className="font-mono-spec text-xs uppercase tracking-[0.16em] text-[#5B0E24]">
-              Client Concierge Dispatch
+              Concierge
             </div>
             <h3 className="font-serif-display text-3xl font-semibold text-[#1C1618] mt-1">
-              Send an Outfit or Fitting Inquiry
+              Message the workroom
             </h3>
             <p className="font-sans-ui text-xs sm:text-sm text-[#1C1618]/80 mt-1.5">
               Write to our cutters for wedding group orders, custom cloth swatches, or size

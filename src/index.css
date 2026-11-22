@@ -238,3 +238,29 @@
   cursor: pointer;
 }
 .atelier-details:last-child { margin-bottom: 3rem; }
+
+:root { --house-wine: #5b0e24; --house-paper: #faf7f2; }
+.house-hero { background: radial-gradient(ellipse at center, #76213b, var(--house-wine) 70%); }
+.house-masthead { background: var(--house-wine); color: var(--house-paper); }
+.house-masthead > div {
+  display: flex; align-items: end; justify-content: space-between; gap: 1.5rem;
+  flex-wrap: wrap; max-width: 1280px; margin: auto; padding: clamp(2rem,5vw,4rem) clamp(1rem,4vw,2.5rem);
+}
+.house-masthead h1, .salon-directory h2 {
+  font-family: Georgia, serif; font-weight: 400; line-height: 1.07; letter-spacing: -.035em;
+}
+.house-masthead h1 { font-size: clamp(2.75rem,6vw,5.25rem); }
+.house-masthead button { border: 1px solid #d8b2bb; border-radius: 2rem; padding: .6rem 1rem; min-height: 44px; cursor: pointer; }
+.house-masthead button:hover { background: #fff1; }
+.gallery-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; font-size: .875rem; }
+.house-portrait { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+#about figcaption { background: var(--house-wine); padding: 1rem; color: var(--house-paper); }
+.salon-directory { background: var(--house-wine); color: var(--house-paper); padding: clamp(1.5rem,4vw,3.25rem); align-self: start; }
+.salon-directory h2 { font-size: 2.35rem; }
+.salon-directory article { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid #ffffff45; }
+.salon-directory h3 { font-family: Georgia, serif; font-size: 1.5rem; }
+.salon-directory p,.salon-directory small { display: block; margin-top: .6rem; line-height: 1.5; }
+.dialog-heading { background: var(--house-wine); color: var(--house-paper); padding: 1.25rem; margin-bottom: 1.25rem; }
+.dialog-heading span { color: #f3d9df; }
+.dialog-heading button { border-color: currentColor; }
+:where(button,input,textarea,select,summary):focus-visible { outline: 3px solid #bb7487; outline-offset: 3px; }

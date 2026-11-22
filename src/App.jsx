@@ -192,39 +192,9 @@ export default function App() {
         <main id="main-content">
           {activePage === 'about' ? (
             <div className="bg-[#FAF7F2] text-[#1C1618]">
-              <div className="bg-[#F2ECE1] border-b border-[#C8A97E]/60 py-5 sm:py-6">
-                <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                    <button
-                      type="button"
-                      onClick={() => openPage('home')}
-                      className="min-h-[38px] sm:min-h-[40px] px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#FAF7F2] border border-[#1C1618] hover:bg-[#1C1618] hover:text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      &larr; Back to Home
-                    </button>
-                    <div>
-                      <span className="font-mono-spec text-[11px] sm:text-xs uppercase tracking-[0.14em] text-[#5B0E24] block">
-                        Radas Apparel &bull; Lagos &amp; London Workrooms
-                      </span>
-                      <h1
-                        id="about-page-title"
-                        className="font-serif-display text-2xl sm:text-4xl font-semibold text-[#5B0E24] leading-tight"
-                      >
-                        About Radas Apparel
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => openPage('contact')}
-                      className="min-h-[40px] px-4 py-2 rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      Contact Salons &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <header className="house-masthead">
+                <div><h1>The house of Radas</h1><button onClick={() => openPage('contact')}>Contact our salons</button></div>
+              </header>
 
               <AboutSection
                 isStandalone
@@ -242,39 +212,9 @@ export default function App() {
             </div>
           ) : activePage === 'contact' ? (
             <div className="bg-[#FAF7F2] text-[#1C1618] pb-10">
-              <div className="bg-[#F2ECE1] border-b border-[#C8A97E]/60 py-5 sm:py-6">
-                <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                    <button
-                      type="button"
-                      onClick={() => openPage('home')}
-                      className="min-h-[38px] sm:min-h-[40px] px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#FAF7F2] border border-[#1C1618] hover:bg-[#1C1618] hover:text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      &larr; Back to Home
-                    </button>
-                    <div>
-                      <span className="font-mono-spec text-[11px] sm:text-xs uppercase tracking-[0.14em] text-[#5B0E24] block">
-                        Radas Apparel &bull; Direct Concierge &amp; Salons
-                      </span>
-                      <h1
-                        id="contact-page-title"
-                        className="font-serif-display text-2xl sm:text-4xl font-semibold text-[#5B0E24] leading-tight"
-                      >
-                        Visit Our Salons or Message the Workroom
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => openBespokeWithGarment()}
-                      className="min-h-[40px] px-4 py-2 rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      Book Private Fitting
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <header className="house-masthead">
+                <div><h1>Salons & concierge</h1><button onClick={() => openBespokeWithGarment()}>Book a fitting</button></div>
+              </header>
 
               <ContactSection isStandalone shouldReduceMotion={shouldReduceMotion} />
             </div>
@@ -293,10 +233,6 @@ export default function App() {
                 onOpenGalleryOutfit={openOutfitByCode}
               />
 
-              <CurvedLookbookSection
-                shouldReduceMotion={shouldReduceMotion}
-                onOpenOutfitInGallery={openOutfitInGallery}
-              />
 
               <CatalogSection
                 shouldReduceMotion={shouldReduceMotion}
@@ -327,6 +263,10 @@ export default function App() {
 
                 <MaterialsSection />
               </details>
+              <CurvedLookbookSection
+                shouldReduceMotion={shouldReduceMotion}
+                onOpenOutfitInGallery={openOutfitInGallery}
+              />
             </>
           )}
         </main>

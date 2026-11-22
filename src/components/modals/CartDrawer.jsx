@@ -59,10 +59,10 @@ function CartDrawer({
         className="w-full max-w-md bg-[#FAF7F2] h-full overflow-y-auto border-l-2 border-[#1C1618] p-6 flex flex-col justify-between shadow-2xl"
       >
         <div>
-          <div className="flex items-center justify-between pb-4 border-b border-[#C8A97E]">
+          <div className="dialog-heading flex items-center justify-between">
             <div>
               <span className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#5B0E24]">
-                Atelier Dispatch
+                Radas Apparel
               </span>
               <h3 ref={headingRef} tabIndex={-1} className="font-serif-display text-2xl font-semibold">
                 {id ? 'Order Request Received' : review ? 'Order Review' : `Your Cart (${bagItems.length})`}

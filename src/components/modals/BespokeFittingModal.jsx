@@ -42,14 +42,14 @@ function BespokeFittingModal({
         }
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.26, ease: UI_EASE }}
-        className="w-full max-w-xl bg-[#FAF7F2] editorial-border p-6 md:p-8 shadow-2xl max-h-[92vh] overflow-y-auto"
+        className="w-full max-w-xl bg-[#FAF7F2] p-6 md:p-8 shadow-2xl max-h-[92vh] overflow-y-auto"
       >
-        <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#C8A97E]">
+        <div className="dialog-heading flex items-start justify-between gap-4">
           <div>
             <span className="font-mono-spec text-xs uppercase tracking-[0.16em] text-[#5B0E24]">
-              Custom Menswear Portal
+              Radas Atelier
             </span>
-            <h3 className="font-serif-display text-3xl font-semibold text-[#1C1618]">
+            <h3 className="font-serif-display text-3xl font-semibold text-[#FAF7F2]">
               Book Private Fitting Commission
             </h3>
           </div>
