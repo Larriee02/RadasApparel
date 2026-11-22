@@ -280,6 +280,7 @@
   margin: 10px auto; width: min(calc(100% - 28px), 1200px);
   color: #faf7f2;
 }
+.floating-nav:has([aria-expanded="true"]) { z-index: 51; }
 .floating-nav-surface {
   overflow: auto; max-height: calc(100dvh - 24px);
   background: rgb(65 13 32 / .84); backdrop-filter: blur(20px) saturate(130%);
