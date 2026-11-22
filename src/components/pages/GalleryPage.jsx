@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import {
   CURVED_GALLERY_ITEMS,
   DEPARTMENT_PILLARS,
@@ -50,6 +51,16 @@ function GalleryPage({
     onSelectOutfit(CURVED_GALLERY_ITEMS[nextIdx].id)
   }
 
+  function selectCategory(event, pillar) {
+    setGalleryFilter(pillar)
+    const button = event.currentTarget
+    const rail = button.parentElement
+    rail.scrollTo({
+      left: button.offsetLeft - (rail.clientWidth - button.offsetWidth) / 2,
+      behavior: shouldReduceMotion ? 'instant' : 'smooth',
+    })
+  }
+
   function addLook() {
     onAddToBag({
       sku: selectedOutfit.sku,
@@ -86,7 +97,7 @@ function GalleryPage({
             <Exploded3DGarmentStudio angleObj={selectedOutfit} mode="exploded"
               onModeChange={() => setGalleryViewMode('full')} rotY={galleryRotY} onRotYChange={setGalleryRotY} />
           ) : (
-            <img src={selectedOutfit.image} alt={selectedOutfit.alt} className="edition-photo" />
+            <img key={selectedOutfit.id} src={selectedOutfit.image} alt={selectedOutfit.alt} className="edition-photo" />
           )}
           <div className="edition-caption">
             <span>{selectedOutfit.sku}</span>
@@ -121,13 +132,23 @@ function GalleryPage({
         </div>
       </div>
       <section id="gallery-grid" className="edition-archive">
-        <h2 className="font-serif-display">The outfit index</h2>
-        <div className="edition-options">
-          {DEPARTMENT_PILLARS.map(pillar => (
-            <button key={pillar} aria-pressed={pillar === galleryFilter} onClick={() => setGalleryFilter(pillar)}>{pillar}</button>
-          ))}
+        <div className="index-heading">
+          <h2 className="font-serif-display">The outfit index</h2>
+          <span role="status">{filteredGalleryOutfits.length} looks</span>
         </div>
-        <div className="edition-index">
+        <motion.div layoutScroll className="index-filters" role="group" aria-label="Filter outfits by category">
+          {DEPARTMENT_PILLARS.map(pillar => (
+            <button key={pillar} aria-pressed={pillar === galleryFilter}
+              onClick={event => selectCategory(event, pillar)}>
+              {pillar === galleryFilter && (
+                <motion.span aria-hidden="true" className="index-filter-ink" layoutId="index-filter-ink"
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }} />
+              )}
+              <span>{pillar}</span>
+            </button>
+          ))}
+        </motion.div>
+        <div key={galleryFilter} className="edition-index">
           {filteredGalleryOutfits.map(look => (
             <button key={look.id} aria-current={look.id === selectedOutfit.id || undefined} onClick={() => {
               onSelectOutfit(look.id)
