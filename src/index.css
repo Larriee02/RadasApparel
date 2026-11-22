@@ -606,3 +606,29 @@ textarea.contact-field { resize: vertical; }
   .workroom-contact { grid-template-columns: 1fr; gap: 2rem; }
   .contact-portrait img { height: clamp(14rem, 48vw, 21rem); }
 }
+
+.house-story { max-width: 1280px; margin: auto; padding: clamp(1rem, 3vw, 2.5rem) clamp(1.1rem, 5vw, 4.5rem) 1rem; color: var(--house-wine); }
+.house-story-spread { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); }
+.house-story-place { font-size: .82rem; letter-spacing: .06em; }
+.house-story-intro h1 { font-size: clamp(4.2rem, 8.8vw, 7.8rem); letter-spacing: -.055em; line-height: .85; margin: .26em 0; }
+.house-story-lead { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.5; max-width: 33ch; color: #524145; }
+.house-story-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .3rem 1.4rem; margin-top: 1.3rem; }
+.house-story-actions button { min-height: 44px; font-size: .88rem; cursor: pointer; }
+.house-story-actions button:first-child { background: var(--house-wine); color: #fff5e7; padding-inline: 1.2rem; border-radius: 3px; }
+.house-story-actions span { margin-left: .9rem; }
+.house-story-actions button:last-child { text-decoration: underline; text-underline-offset: .3em; }
+.house-story-portraits { position: relative; padding: 0 0 1.5rem 14%; }
+.house-story-look { width: 100%; height: clamp(24rem, 40vw, 34rem); object-fit: cover; object-position: center 25%; border-radius: 48% 48% 3px 3px; }
+.house-story-detail { position: absolute; width: 38%; aspect-ratio: 1; object-fit: cover; object-position: center 65%; bottom: 0; left: 0; border: 5px solid var(--house-paper); }
+.house-story-notes { border-top: 1px solid #b89c88; margin-top: clamp(2.25rem, 5vw, 4.5rem); padding-block: 1.6rem; display: grid; grid-template-columns: .8fr 1.2fr; gap: 1rem; }
+.house-story-notes h2 { font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; letter-spacing: -.035em; }
+.house-story-notes p, .house-story-facts dd { font-size: .95rem; line-height: 1.65; color: #59484a; }
+.house-story-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+.house-story-facts > div { border-top: 1px dashed #bda48e; padding-top: .85rem; }
+.house-story-facts dt { font-size: .8rem; }
+.house-story-facts strong { display: block; font-size: 2.4rem; line-height: 1.3; font-weight: 500; color: var(--house-wine); }
+@media (max-width: 690px) {
+  .house-story-spread, .house-story-notes, .house-story-facts { grid-template-columns: 1fr; }
+  .house-story-look { height: clamp(19rem, 92vw, 27rem); }
+  .house-story-facts { gap: 1rem; }
+}

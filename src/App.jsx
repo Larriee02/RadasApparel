@@ -192,12 +192,7 @@ export default function App() {
         <main id="main-content">
           {activePage === 'about' ? (
             <div className="bg-[#FAF7F2] text-[#1C1618]">
-              <header className="house-masthead">
-                <div><h1>The house of Radas</h1><button onClick={() => openPage('contact')}>Contact the workroom</button></div>
-              </header>
-
               <AboutSection
-                isStandalone
                 onBookFitting={openBespokeWithGarment}
                 onOpenPage={openPage}
               />
