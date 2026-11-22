@@ -37,8 +37,13 @@ function AtelierFooter({ onBookFitting, onCookieSettings }) {
         </div>
         <div className="footer-colophon">
           <small>© {new Date().getFullYear()} Radas Apparel</small>
-          <small>Prices in Nigerian naira (₦)</small>
-          <button type="button" onClick={onCookieSettings}>Cookie settings</button>
+          <button type="button" onClick={onCookieSettings} className="preference-tab">
+            <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M3 7h6m5 0h7M3 17h10m5 0h3" />
+              <circle cx="11.5" cy="7" r="2.5" /><circle cx="15.5" cy="17" r="2.5" />
+            </svg>
+            Cookie settings
+          </button>
         </div>
       </div>
     </footer>
