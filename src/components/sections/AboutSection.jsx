@@ -27,19 +27,19 @@ function AboutSection({ isStandalone = false, onBookFitting, onOpenPage }) {
             <div>
               <span className="font-mono-spec text-xs uppercase tracking-[0.18em] text-[#5B0E24]">
                 {isStandalone
-                  ? 'Our workrooms'
+                  ? 'Our workroom'
                   : '06 • About Radas Apparel'}
               </span>
               <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-[#5B0E24] mt-1 leading-tight">
                 {isStandalone ? (
                   <>
                     Lagos Heritage,{' '}
-                    <span className="italic">Mayfair Pattern Precision.</span>
+                    <span className="italic">Cut in Victoria Island.</span>
                   </>
                 ) : (
                   <>
                     The House of Radas:{' '}
-                    <span className="italic">Lagos Heritage, Mayfair Precision.</span>
+                    <span className="italic">Made in Lagos.</span>
                   </>
                 )}
               </h2>
@@ -47,7 +47,7 @@ function AboutSection({ isStandalone = false, onBookFitting, onOpenPage }) {
 
             <div className="space-y-4 font-sans-ui text-sm md:text-base text-[#1C1618]/85 leading-relaxed">
               <p>
-                Founded between Victoria Island and Mayfair, Radas Apparel cuts formal
+                Based in Victoria Island, Lagos, Radas Apparel cuts formal
                 Nigerian ceremonial robes and modern menswear suiting under one roof. Every
                 garment starts from high-twist European wool, 380gsm Italian velvet, or
                 hand-loomed Aso-Oke milled specifically for warm coastal evenings and
@@ -94,7 +94,7 @@ function AboutSection({ isStandalone = false, onBookFitting, onOpenPage }) {
                 onClick={() => onOpenPage('contact')}
                 className="min-h-[44px] inline-flex items-center px-6 py-2.5 rounded-full border border-[#5B0E24] text-[#5B0E24] hover:bg-[#5B0E24] hover:text-[#FAF7F2] font-sans-ui text-xs font-semibold uppercase tracking-[0.12em] transition-colors cursor-pointer"
               >
-                Contact Our Salons
+                Contact the Workroom
               </button>
             </div>
           </div>

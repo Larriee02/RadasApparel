@@ -33,7 +33,7 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
               07 • Contact Us &amp; Fitting Appointments
             </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-[#5B0E24] mt-1">
-              Visit Our Salons or{' '}
+              Visit Our Lagos Salon or{' '}
               <span className="italic">Message the Workroom.</span>
             </h2>
           </div>
@@ -45,7 +45,7 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         <aside className="salon-directory lg:col-span-5">
-          <h2>Visit a salon</h2>
+          <h2>Visit the Lagos workroom</h2>
           {SALON_LOCATIONS.map((salon) => (
             <article key={salon.city}>
               <h3>{salon.city}</h3>
@@ -138,7 +138,7 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="block">
                       <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
-                        Preferred Salon
+                        Contact destination
                       </span>
                       <select
                         value={contactForm.salon}
@@ -148,7 +148,6 @@ function ContactSection({ isStandalone = false, shouldReduceMotion }) {
                         className="w-full px-3 py-2.5 bg-[#FAF7F2] border border-[#1C1618]/40 text-sm"
                       >
                         <option>Lagos Flagship Salon</option>
-                        <option>London Private Fitting Suite</option>
                         <option>Worldwide Online Order Desk</option>
                       </select>
                     </label>

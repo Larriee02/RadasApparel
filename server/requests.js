@@ -3,6 +3,7 @@ import { mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import express from 'express'
+import { FITTING_CHANNELS, HOME_FITTING } from '../src/constants/fittingChannels.js'
 import { RTW_SIZES } from '../src/constants/storageKeys.js'
 import { GALLERY_PRODUCTS_BY_SKU } from '../src/data/raddasData.js'
 
@@ -59,11 +60,16 @@ function validate(kind, body) {
 
   const clientName = field(body, 'clientName', 120)
   if (kind === 'fittings') {
+    const city = field(body, 'city', 100)
+    if (city !== 'Lagos' && !FITTING_CHANNELS.includes(city)) {
+      throw new InvalidRequest('Choose an available fitting channel.')
+    }
     return {
       email,
       clientName,
       garment: field(body, 'garment', 200),
-      city: field(body, 'city', 100),
+      city,
+      ...(city === HOME_FITTING ? { address: field(body, 'address', 500) } : {}),
       chest: field(body, 'chest', 24, false),
       shoulder: field(body, 'shoulder', 24, false),
       sleeve: field(body, 'sleeve', 24, false),

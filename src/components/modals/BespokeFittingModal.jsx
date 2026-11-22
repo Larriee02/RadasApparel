@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { DEFAULT_FITTING_GARMENT, UI_EASE } from '../../constants/storageKeys'
+import { FITTING_CHANNELS, HOME_FITTING } from '../../constants/fittingChannels'
 import { CURVED_GALLERY_ITEMS } from '../../data/raddasData'
 import { CoutureTailorSeal } from '../AtelierVisuals'
 import useRequestSubmission from '../../hooks/useRequestSubmission'
@@ -20,7 +21,8 @@ function BespokeFittingModal({
     clientName: '',
     email: '',
     garment: initialGarment || DEFAULT_FITTING_GARMENT,
-    city: 'Lagos Atelier Fitting',
+    city: FITTING_CHANNELS[0],
+    address: '',
     chest: measurements?.chest || '',
     shoulder: measurements?.shoulder || '',
     sleeve: measurements?.sleeve || '',
@@ -83,7 +85,8 @@ function BespokeFittingModal({
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              void submit(bespokeForm)
+              const { address, ...request } = bespokeForm
+              void submit(request.city === HOME_FITTING ? { ...request, address } : request)
             }}
             className="fitting-form"
           >
@@ -146,12 +149,20 @@ function BespokeFittingModal({
                     }
                     className="w-full px-3 py-2.5 bg-[#F2ECE1] border border-[#1C1618]/40 text-sm"
                   >
-                    <option>Lagos Atelier Fitting</option>
-                    <option>London Mayfair Fitting</option>
-                    <option>Live Video Tape Consultation</option>
+                    {FITTING_CHANNELS.map(channel => <option key={channel}>{channel}</option>)}
                   </select>
                 </label>
               </div>
+
+              <p className="text-sm text-[#5B0E24]">An additional fee applies to home-service fittings.</p>
+              {bespokeForm.city === HOME_FITTING && (
+                <label className="block">
+                  <span className="fitting-label">Home fitting address</span>
+                  <textarea required maxLength={500} rows={2} autoComplete="street-address"
+                    className="w-full px-3 py-2" value={bespokeForm.address}
+                    onChange={event => setBespokeForm({ ...bespokeForm, address: event.target.value })} />
+                </label>
+              )}
 
               <div className="fitting-measures grid grid-cols-3 gap-3">
                 <p className="col-span-3 font-serif-display text-xl">Tape measurements</p>

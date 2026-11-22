@@ -41,6 +41,12 @@ test('request receipts refer to persisted, validated submissions and retries kee
   const fitting = await submit('fittings', { email, clientName: 'Test Client', garment: 'Kaftan', city: 'Lagos' })
   assert.equal(fitting.status, 201)
 
+  const homeVisit = { email, clientName: 'Test Client', garment: 'Kaftan', city: 'Home Service Fitting' }
+  assert.equal((await submit('fittings', homeVisit)).status, 422)
+  assert.equal((await submit('fittings', { ...homeVisit, city: 'London Mayfair Fitting' })).status, 422)
+  const home = await submit('fittings', { ...homeVisit, address: 'Test address, Lagos' })
+  assert.equal(home.status, 201)
+
   const line = { sku: 'RD-KAF-11', purchaseMode: 'rtw', size: 'L', price: 360000 }
   const order = { email, clientName: 'Test Client', items: [line, line] }
   const staleOrder = { ...order, items: [{ ...line, price: 440000 }] }
@@ -50,7 +56,10 @@ test('request receipts refer to persisted, validated submissions and retries kee
 
   const inbox = openInbox()
   try {
-    assert.equal(inbox.prepare('SELECT COUNT(*) AS total FROM requests').get().total, 3)
+    assert.equal(inbox.prepare('SELECT COUNT(*) AS total FROM requests').get().total, 4)
+    const visit = JSON.parse(inbox.prepare('SELECT payload FROM requests WHERE id = ?').get(home.id).payload)
+    assert.equal(visit.city, homeVisit.city)
+    assert.equal(visit.address, 'Test address, Lagos')
     const record = inbox.prepare('SELECT payload FROM requests WHERE id = ?').get(accepted.id)
     const details = JSON.parse(record.payload)
     assert.equal(details.subtotal, 720000)

@@ -193,7 +193,7 @@ export default function App() {
           {activePage === 'about' ? (
             <div className="bg-[#FAF7F2] text-[#1C1618]">
               <header className="house-masthead">
-                <div><h1>The house of Radas</h1><button onClick={() => openPage('contact')}>Contact our salons</button></div>
+                <div><h1>The house of Radas</h1><button onClick={() => openPage('contact')}>Contact the workroom</button></div>
               </header>
 
               <AboutSection
@@ -213,7 +213,7 @@ export default function App() {
           ) : activePage === 'contact' ? (
             <div className="bg-[#FAF7F2] text-[#1C1618] pb-10">
               <header className="house-masthead">
-                <div><h1>Salons & concierge</h1><button onClick={() => openBespokeWithGarment()}>Book a fitting</button></div>
+                <div><h1>Lagos workroom & concierge</h1><button onClick={() => openBespokeWithGarment()}>Book a fitting</button></div>
               </header>
 
               <ContactSection isStandalone shouldReduceMotion={shouldReduceMotion} />

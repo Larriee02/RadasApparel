@@ -264,8 +264,8 @@ export const ATELIER_CHAPTERS = [
     step: '03',
     title: 'Salon Fitting & Worldwide Dispatch',
     fact: '14-day custom completion • 48-hour Ready-to-Wear courier',
-    copy: 'Review drape and shoulder pitch in person at Adeola Odeku Street, Victoria Island or via live video fitting from Mayfair. Ready-to-Wear orders dispatch in S–3XL garment boxes within 48 hours.',
-    specs: ['14-Day Custom Cut', '48h RTW Dispatch', 'Lagos & London Fit'],
+    copy: 'Review drape and shoulder pitch in person at Adeola Odeku Street, Victoria Island or by live video consultation. Ready-to-Wear orders dispatch in S–3XL garment boxes within 48 hours.',
+    specs: ['14-Day Custom Cut', '48h RTW Dispatch', 'Lagos Workroom'],
     image: '/lookbook/suit-burgundy.jpg',
     alt: 'Finished custom-cut burgundy dinner jacket fitted against cream neoclassical columns',
     silhouette: 'suit',
@@ -763,7 +763,7 @@ export const ABOUT_METRICS = [
   },
   {
     figure: '48h / 14d',
-    label: 'Dual Atelier Dispatch',
+    label: 'Workroom Dispatch',
     detail: '48-hour shipping on Ready-to-Wear drops (S–3XL); 14 days on full custom commissions.',
   },
 ];
@@ -774,12 +774,6 @@ export const SALON_LOCATIONS = [
     address: 'Adeola Odeku Street, Victoria Island, Lagos',
     hours: 'Monday – Saturday, 10:00 AM – 7:00 PM WAT',
     services: 'Full Pattern Cutting, Velvet & Aso-Oke Library, Wedding Parties',
-  },
-  {
-    city: 'London Private Fitting Suite',
-    address: 'Mount Street, Mayfair, London',
-    hours: 'Tuesday – Saturday, By Appointment (GMT)',
-    services: 'Barathea Tuxedo Fittings, Tape Consultations, Private Dispatch',
   },
 ];
 

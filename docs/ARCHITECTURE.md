@@ -6,7 +6,7 @@
 
 ## 1. System Overview & Architectural Vision
 
-Radas Apparel operates an editorial menswear storefront combining ready-to-wear (RTW) e-commerce, 3D/GPU lookbook curation, and custom-measurement fitting workflows across flagship salons in Lagos, Abuja, and London.
+Radas Apparel operates an editorial menswear storefront combining ready-to-wear (RTW) e-commerce, 3D/GPU lookbook curation, and custom-measurement fitting workflows at the Lagos workroom, by home visit, or by live video.
 
 ### Target End-to-End Architecture
 
@@ -187,7 +187,7 @@ CREATE INDEX idx_order_items_order ON order_items(order_id);
 -- 5. Private Salon Fitting Appointments
 CREATE TABLE fitting_appointments (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    salon_city      TEXT NOT NULL CHECK (salon_city IN ('Lagos','Abuja','London')),
+    fitting_channel TEXT NOT NULL CHECK (fitting_channel IN ('Lagos Atelier Fitting','Home Service Fitting','Live Video Tape Consultation')),
     garment_id      TEXT REFERENCES garments(id) ON DELETE SET NULL,
     client_name     TEXT NOT NULL,
     client_email    TEXT NOT NULL,
@@ -225,7 +225,7 @@ CREATE TABLE concierge_inquiries (
 | `GET /api/v1/lookbook` | Fetch ordered 3D Curved Lookbook items linked to full Gallery outfits | Redis read-through cache (`TTL 600s`) |
 | `POST /api/v1/measurements` | Persist or update a client's tape measurement profile (requires consent flag) | Private no-store; validates numeric bounds |
 | `POST /api/v1/orders` | Create transactional order + reserve inventory | Requires `Idempotency-Key` header; DB transaction |
-| `POST /api/v1/fittings` | Book private fitting at Lagos, Abuja, or London salon | Redis short lock (`15s`) on double-booking slots |
+| `POST /api/v1/fittings` | Request a Lagos workroom, home-service, or video fitting | Redis short lock (`15s`) on double-booking slots |
 | `POST /api/v1/concierge` | Submit contact & press inquiries with async email dispatch | Rate-limited (`5 req/min/IP`) |
 
 ---

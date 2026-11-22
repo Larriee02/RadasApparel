@@ -31,7 +31,7 @@ function CuttingTableSection({
           </h2>
         </div>
         <span className="font-mono-spec text-xs text-[#1C1618]/80">
-          Victoria Island &amp; Mayfair Tailoring Sequence
+          Inside the Victoria Island workroom
         </span>
       </div>
 
