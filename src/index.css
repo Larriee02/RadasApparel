@@ -301,10 +301,10 @@
 .floating-nav[data-open="true"] .floating-nav-surface { border-radius: 19px; }
 .floating-nav-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 2px 6px; }
 .floating-nav button { cursor: pointer; min-height: 44px; }
-.nav-tools { display: flex; justify-self: start; }
-.nav-tools button, .floating-brand { width: 44px; display: grid; place-items: center; border-radius: 50%; }
-.nav-tools button:hover, .floating-brand:hover { background: #ffffff18; }
-.nav-tools svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+.nav-cart { justify-self: end; }
+.floating-nav-bar button { width: 44px; display: grid; place-items: center; border-radius: 50%; }
+.floating-nav-bar button:hover { background: #ffffff18; }
+.floating-nav-bar svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
 .floating-brand img { width: 33px; height: 33px; object-fit: contain; }
 #house-menu { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 310ms ease, opacity 220ms ease; }
 .floating-nav[data-open="true"] #house-menu { grid-template-rows: 1fr; opacity: 1; }

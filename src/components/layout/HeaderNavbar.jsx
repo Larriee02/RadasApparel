@@ -41,23 +41,21 @@ function HeaderNavbar({ onOpenOutfit, activePage, bagCount, onOpenPage, onNavCli
     <header ref={header} className="floating-nav" data-open={open}>
       <div className="floating-nav-surface">
         <div className="floating-nav-bar">
-          <div className="nav-tools">
-            <button aria-label={`Open cart (${bagCount})`} onClick={() => { setOpen(false); onOpenBag() }}>
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M2 3h3l3 12h11l3-9H6" />
-                <circle cx="9" cy="20" r="1.25" /><circle cx="18" cy="20" r="1.25" />
-              </svg>
-            </button>
-            <button ref={toggle} aria-label={open ? 'Close menu' : 'Open menu'}
-              aria-expanded={open} aria-controls="house-menu" onClick={() => setOpen(!open)}>
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d={open ? 'M5 5l14 14M19 5L5 19' : 'M3 5h18M3 12h18M3 19h18'} />
-              </svg>
-            </button>
-          </div>
+          <button ref={toggle} aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open} aria-controls="house-menu" onClick={() => setOpen(!open)}>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d={open ? 'M5 5l14 14M19 5L5 19' : 'M3 5h18M3 12h18M3 19h18'} />
+            </svg>
+          </button>
           <button className="floating-brand" aria-label="Radas Apparel home"
             onClick={() => { setOpen(false); onOpenPage('home') }}>
             <img src="/monogram-gold.png" alt="" />
+          </button>
+          <button className="nav-cart" aria-label={`Open cart (${bagCount})`} onClick={() => { setOpen(false); onOpenBag() }}>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M2 3h3l3 12h11l3-9H6" />
+              <circle cx="9" cy="20" r="1.25" /><circle cx="18" cy="20" r="1.25" />
+            </svg>
           </button>
         </div>
         <div id="house-menu" inert={!open} aria-hidden={!open}>
