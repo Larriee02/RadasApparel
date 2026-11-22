@@ -182,7 +182,7 @@ export default function App() {
         <HeaderNavbar
           activePage={activePage}
           bagCount={bagItems.length}
-          shouldReduceMotion={shouldReduceMotion}
+          onOpenOutfit={openOutfitInGallery}
           onOpenPage={openPage}
           onNavClick={handleNavClick}
           onBookFitting={openBespokeWithGarment}

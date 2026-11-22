@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { NAV_ITEMS } from '../../constants/storageKeys'
 
-function HeaderNavbar({ activePage, bagCount, onOpenPage, onNavClick, onBookFitting, onOpenBag }) {
+import { CURVED_GALLERY_ITEMS } from '../../data/raddasData'
+
+const featuredLooks = CURVED_GALLERY_ITEMS.slice(0, 3)
+
+function HeaderNavbar({ onOpenOutfit, activePage, bagCount, onOpenPage, onNavClick, onBookFitting, onOpenBag }) {
   const [open, setOpen] = useState(false)
   const header = useRef(null)
   const toggle = useRef(null)
@@ -34,7 +38,7 @@ function HeaderNavbar({ activePage, bagCount, onOpenPage, onNavClick, onBookFitt
   }
 
   return (
-    <header ref={header} className="floating-nav">
+    <header ref={header} className="floating-nav" data-open={open}>
       <div className="floating-nav-surface">
         <div className="floating-nav-bar">
           <div className="nav-tools">
@@ -56,15 +60,31 @@ function HeaderNavbar({ activePage, bagCount, onOpenPage, onNavClick, onBookFitt
             <img src="/monogram-gold.png" alt="" />
           </button>
         </div>
-        <nav id="house-menu" aria-label="Primary navigation" hidden={!open}>
-          {NAV_ITEMS.map(({ id, label }) => (
-            <button key={id} aria-current={activePage === id ? 'page' : undefined}
-              onClick={() => navigate(id)}>{label}</button>
-          ))}
-          <button onClick={() => { toggle.current.focus(); setOpen(false); onBookFitting() }}>
-            Book Fitting
-          </button>
-        </nav>
+        <div id="house-menu" inert={!open} aria-hidden={!open}>
+          <div className="nav-reveal">
+            <nav aria-label="Primary navigation">
+              <div className="nav-looks">
+                {featuredLooks.map((look) => (
+                  <button key={look.id} aria-label={look.title} onClick={() => {
+                    setOpen(false)
+                    toggle.current.focus()
+                    onOpenOutfit(look.id)
+                  }}>
+                    <img src={look.image} alt="" />
+                    <span>{look.silhouette}</span>
+                  </button>
+                ))}
+              </div>
+              {NAV_ITEMS.map(({ id, label }) => (
+                <button key={id} aria-current={activePage === id ? 'page' : undefined}
+                  onClick={() => navigate(id)}>{label}</button>
+              ))}
+              <button className="nav-fitting" onClick={() => { toggle.current.focus(); setOpen(false); onBookFitting() }}>
+                Book Fitting
+              </button>
+            </nav>
+          </div>
+        </div>
       </div>
     </header>
   )

@@ -276,31 +276,48 @@
   .orbit-portrait { width: clamp(44px, 13vw, 67px); offset-path: ellipse(40% 39% at 50% 50%); }
 }
 .floating-nav {
-  position: sticky; top: 10px; z-index: 49; height: 58px;
-  margin: 10px auto; width: min(calc(100% - 28px), 1200px);
-  color: #faf7f2;
+  position: sticky;
+  top: 10px;
+  z-index: 49;
+  width: min(22rem, calc(100% - 24px));
+  height: 50px;
+  margin: 10px auto;
+  color: var(--house-paper);
+  transition: width 310ms cubic-bezier(.22,1,.36,1);
 }
-.floating-nav:has([aria-expanded="true"]) { z-index: 51; }
+.floating-nav[data-open="true"] { width: min(27rem, calc(100% - 24px)); z-index: 51; }
 .floating-nav-surface {
-  overflow: auto; max-height: calc(100dvh - 24px);
-  background: rgb(65 13 32 / .84); backdrop-filter: blur(20px) saturate(130%);
-  -webkit-backdrop-filter: blur(20px) saturate(130%);
-  border: 1px solid rgb(255 255 255 / .27); border-radius: 24px;
-  box-shadow: 0 6px 24px #31071524;
+  max-height: calc(100dvh - 20px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: linear-gradient(125deg, #ffffff13, transparent 55%), rgb(57 10 28 / .81);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border: 1px solid #ffffff44;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 0 #ffffff1c, 0 6px 20px #31071524;
+  transition: border-radius 260ms;
 }
-.floating-nav-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 5px 12px; min-height: 56px; }
+.floating-nav[data-open="true"] .floating-nav-surface { border-radius: 19px; }
+.floating-nav-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 2px 6px; }
 .floating-nav button { cursor: pointer; min-height: 44px; }
 .nav-tools { display: flex; justify-self: start; }
 .nav-tools button, .floating-brand { width: 44px; display: grid; place-items: center; border-radius: 50%; }
 .nav-tools button:hover, .floating-brand:hover { background: #ffffff18; }
-.nav-tools svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
-.floating-brand img { width: 36px; height: 36px; object-fit: contain; }
-#house-menu:not([hidden]) { display: grid; grid-template-columns: repeat(2,1fr); padding: 1rem clamp(1rem,4vw,3rem) 2rem; border-top: 1px solid #ffffff36; animation: menu-in .2s ease-out; }
-#house-menu button { padding: .8rem .5rem; text-align: left; font: 400 clamp(1.6rem,4vw,3.5rem) Georgia,serif; }
-#house-menu button:hover, #house-menu [aria-current] { color: #ebcead; }
-@keyframes menu-in { from {opacity:0;transform:translateY(-6px)} to {opacity:1;transform:none} }
-@media(prefers-reduced-motion:reduce){#house-menu:not([hidden]){animation:none}}
-@media(max-width:600px){
-  .floating-nav { width:calc(100% - 16px); }
-  #house-menu:not([hidden]) {grid-template-columns:1fr}
+.nav-tools svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+.floating-brand img { width: 33px; height: 33px; object-fit: contain; }
+#house-menu { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 310ms ease, opacity 220ms ease; }
+.floating-nav[data-open="true"] #house-menu { grid-template-rows: 1fr; opacity: 1; }
+.nav-reveal { min-height: 0; overflow: hidden; }
+.nav-reveal nav { display: grid; padding: 8px 20px 12px; }
+.nav-looks { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-bottom: 12px; }
+.nav-looks button { position: relative; overflow: hidden; border-radius: 6px; text-align: left; }
+.nav-looks img { width: 100%; height: clamp(88px, 14dvh, 124px); object-fit: cover; object-position: center 24%; }
+.nav-looks span { position: absolute; inset: auto 0 0; background: linear-gradient(transparent,#210914db); padding: 18px 8px 6px; font-size: .78rem; text-transform: capitalize; }
+.nav-reveal nav > button { text-align: left; font: 500 1.35rem/1.2 'Plus Jakarta Sans',sans-serif; }
+.nav-reveal nav > button:hover, .nav-reveal [aria-current] { color: #f0d3ac; }
+.nav-reveal nav > .nav-fitting { margin-top: 10px; border-top: 1px solid #ffffff38; font-size: .9rem; }
+.floating-nav button:focus-visible { outline: 2px solid #f0d3ac; outline-offset: -3px; }
+@media (prefers-reduced-motion: reduce) {
+  .floating-nav, .floating-nav-surface, #house-menu { transition: none; }
 }
