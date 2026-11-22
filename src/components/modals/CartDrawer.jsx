@@ -51,11 +51,11 @@ function CartDrawer({
     <ModalDialog
       label={review ? 'Order Review' : 'Shopping Cart Drawer'}
       onClose={close}
-      className="flex justify-end bg-[#1C1618]/65 backdrop-blur-xs"
+      className="cart-overlay flex justify-center items-start"
     >
       <motion.div
-        initial={shouldReduceMotion ? { x: 0 } : { x: '100%' }}
-        animate={{ x: 0 }}
+        initial={shouldReduceMotion ? { x: 0 } : { y: -10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.28, ease: UI_EASE }}
         className="cart-sheet"
       >

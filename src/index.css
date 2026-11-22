@@ -470,3 +470,56 @@
 .cart-empty-caption button { width: 100%; margin-top: 1rem; padding-top: .4rem; border-top: 1px solid #ceab865c; display: flex; align-items: center; justify-content: space-between; min-height: 44px; cursor: pointer; font-size: .95rem; }
 .cart-empty-caption button:hover { color: #e7c999; }
 .cart-summary { margin-top: auto; border-top: 1px dashed #ad9176; padding-top: 1.2rem; }
+
+.cart-overlay { padding: clamp(12px, 5dvh, 48px) 12px; background: rgb(32 10 18 / .23); }
+.cart-sheet {
+  height: auto; max-height: 100%; border-radius: 42px; padding: clamp(22px, 3vw, 34px);
+  border: 1px solid #fff9; background: linear-gradient(125deg, #fff9, transparent 60%), rgb(250 242 230 / .72);
+  -webkit-backdrop-filter: blur(26px) saturate(130%); backdrop-filter: blur(26px) saturate(130%);
+  box-shadow: inset 0 1px 1px #fffd, 0 14px 54px #31102138;
+}
+.cart-empty { flex: none; flex-direction: row; align-items: center; gap: 1rem; background: transparent; color: inherit; }
+.cart-empty > img { flex: none; width: 34%; height: clamp(120px, 21vh, 180px); min-height: 0; object-position: center 28%; border-radius: 36px 36px 8px 8px; }
+.cart-empty-caption { flex: 1; padding: 0; }
+.cart-empty-caption p { font-size: clamp(1.65rem, 4vw, 2.2rem); }
+.cart-empty-caption button { border-color: #79505a70; font-size: .87rem; text-align: left; }
+.cart-empty-caption button:hover { color: #791342; }
+
+.outfit-edition { max-width: 1380px; margin: auto; padding: 0 clamp(16px, 4vw, 56px) 4rem; color: #491226; }
+.outfit-edition button, .outfit-edition summary { cursor: pointer; }
+.edition-navigation, .edition-navigation div, .edition-caption { display: flex; align-items: center; justify-content: space-between; }
+.edition-navigation { padding-block: .4rem; border-bottom: 1px solid #cdbda9; margin-bottom: 1.3rem; font-size: .85rem; }
+.edition-navigation button, .edition-caption button { min-height: 44px; }
+.edition-navigation div button { width: 44px; }
+.edition-spread { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 6vw, 6rem); scroll-margin-top: 5rem; align-items: start; }
+.edition-plate { min-width: 0; background: #eee4d8; }
+.edition-photo { width: 100%; max-height: 76svh; aspect-ratio: 4/5; object-fit: contain; }
+.edition-caption { padding-inline: 1rem; background: #491226; color: #fff4e4; font-size: .78rem; }
+.edition-caption span, .edition-category { letter-spacing: .1em; font-size: .75rem; }
+.edition-caption button, .edition-fitting { text-decoration: underline; text-underline-offset: .25em; }
+.edition-order { padding-block: clamp(8px, 2vw, 30px); }
+.edition-order h1 { font-size: clamp(2.4rem, 4.3vw, 4.5rem); line-height: .99; letter-spacing: -.04em; margin: .7rem 0 1rem; }
+.edition-fabric { max-width: 42ch; font-size: .96rem; color: #645351; }
+.edition-price { font-size: 1.35rem; margin: 1.25rem 0 .6rem; }
+.edition-options { display: flex; flex-wrap: wrap; gap: 0 1.1rem; border-bottom: 1px solid #cebdab; }
+.edition-options button { min-height: 44px; font-size: .86rem; border-bottom: 2px solid transparent; }
+.edition-options [aria-pressed=true] { border-color: #591329; font-weight: 650; }
+.edition-sizes { margin-top: 1rem; }
+.edition-sizes legend, .edition-index span { font-size: .8rem; }
+.edition-sizes button { border: 1px solid #cfbfae; min-width: 39px; height: 40px; margin: .4rem .3rem 0 0; font-size: .82rem; }
+.edition-sizes [aria-pressed=true], .edition-add { background: #591329; color: #fff8ee; }
+.edition-add { display: flex; justify-content: space-between; width: 100%; padding: .9rem 1rem; margin-top: 1.1rem; }
+.edition-fitting { min-height: 44px; margin-bottom: .5rem; font-size: .88rem; }
+.edition-order details { border-top: 1px solid #cdbda9; padding-block: .7rem; font-size: .9rem; }
+.edition-order details p, .edition-order details li { margin-top: .5em; color: #645351; }
+.edition-archive { margin-top: clamp(2.5rem, 6vw, 5rem); }
+.edition-archive h2 { font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -.04em; }
+.edition-index { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 2rem 1rem; margin-top: 1.4rem; }
+.edition-index button { text-align: left; align-self: start; }
+.edition-index strong { display: block; font-size: 1.35rem; line-height: 1.1; margin: .65rem 0 .25rem; font-weight: 500; }
+.edition-index [aria-current=true] strong { text-decoration: underline; text-underline-offset: .14em; }
+@media (max-width: 720px) {
+  .edition-spread { grid-template-columns: 1fr; gap: 1rem; }
+  .edition-photo { max-height: 58svh; }
+  .edition-index { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}

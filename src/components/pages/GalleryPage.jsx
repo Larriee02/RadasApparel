@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
 import {
   CURVED_GALLERY_ITEMS,
   DEPARTMENT_PILLARS,
@@ -9,7 +8,6 @@ import { RTW_SIZES } from '../../constants/storageKeys'
 import {
   Exploded3DGarmentStudio,
   GarmentVisual,
-  Tilt3DCard,
 } from '../AtelierVisuals'
 
 /**
@@ -52,316 +50,96 @@ function GalleryPage({
     onSelectOutfit(CURVED_GALLERY_ITEMS[nextIdx].id)
   }
 
+  function addLook() {
+    onAddToBag({
+      sku: selectedOutfit.sku,
+      purchaseMode: galleryPurchaseMode,
+      size: galleryPurchaseMode === 'rtw' ? galleryRtwSize : null,
+      name: selectedOutfit.title,
+      mode:
+        galleryPurchaseMode === 'rtw'
+          ? `Full Outfit RTW • Size ${galleryRtwSize}`
+          : 'Full Outfit • Custom Cut Commission',
+      price:
+        galleryPurchaseMode === 'rtw'
+          ? selectedOutfit.rtwPrice
+          : selectedOutfit.bespokePrice,
+      silhouette: selectedOutfit.silhouette,
+      tone: selectedOutfit.tone,
+      image: selectedOutfit.image,
+    })
+  }
+
   return (
-    <section
-      aria-labelledby="gallery-page-title"
-      className="bg-[#FAF7F2] text-[#1C1618] pb-20"
-    >
-      <header className="house-masthead">
+    <section aria-labelledby="gallery-page-title" className="outfit-edition">
+      <header className="edition-navigation">
+        <button onClick={onBackToLookbook}>← Back to lookbook</button>
         <div>
-          <h1 id="gallery-page-title">The outfit gallery</h1>
-          <div className="gallery-navigation">
-            <button onClick={onBackToLookbook}>Back to lookbook</button>
-            <button aria-label="Previous outfit" onClick={() => stepGalleryOutfit(-1)}>←</button>
-            <span>Look {selectedOutfit.id} of {CURVED_GALLERY_ITEMS.length}</span>
-            <button aria-label="Next outfit" onClick={() => stepGalleryOutfit(1)}>→</button>
-          </div>
+          <button aria-label="Previous outfit" onClick={() => stepGalleryOutfit(-1)}>←</button>
+          <span>Look {selectedOutfit.id} of {CURVED_GALLERY_ITEMS.length}</span>
+          <button aria-label="Next outfit" onClick={() => stepGalleryOutfit(1)}>→</button>
         </div>
       </header>
-
-      {/* Full-Outfit Spotlight (#gallery-spotlight) */}
-      <div
-        id="gallery-spotlight"
-        className="scroll-mt-32 md:scroll-mt-24 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-14"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-          {/* Left 6 Columns: Full Head-to-Toe Outfit Viewer & 3D Studio Toggle */}
-          <div className="lg:col-span-6 flex flex-col justify-between gap-4">
-            <div className="flex flex-wrap items-center justify-between gap-2.5">
-              <span className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#5B0E24]">
-                {selectedOutfit.sku} &bull; {selectedOutfit.pillar}
-              </span>
-              <div className="inline-flex rounded-full p-0.5 bg-[#F2ECE1] border border-[#1C1618]/30">
-                {[
-                  { id: 'full', label: 'Full Outfit View' },
-                  { id: '3d', label: '3D Layer Stage' },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setGalleryViewMode(tab.id)}
-                    className={`px-3 py-1 rounded-full font-mono-spec text-xs transition-colors cursor-pointer ${
-                      galleryViewMode === tab.id
-                        ? 'bg-[#5B0E24] text-[#FAF7F2]'
-                        : 'text-[#1C1618] hover:text-[#5B0E24]'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {galleryViewMode === '3d' ? (
-              <div className="flex-1 min-h-[430px] sm:min-h-[520px]">
-                <Exploded3DGarmentStudio
-                  angleObj={selectedOutfit}
-                  mode="exploded"
-                  onModeChange={() => setGalleryViewMode('full')}
-                  rotY={galleryRotY}
-                  onRotYChange={setGalleryRotY}
-                />
-              </div>
-            ) : (
-              <Tilt3DCard intensity={5}>
-                <div className="relative h-[420px] sm:h-[580px] bg-[#5B0E24] p-4 sm:p-5 pb-0  flex flex-col justify-end">
-
-                  <div
-                    className="w-full h-full overflow-hidden border-t-2 border-x-2 border-[#C8A97E] shadow-2xl bg-[#2B0510]"
-                    style={{
-                      borderTopLeftRadius: '140px',
-                      borderTopRightRadius: '140px',
-                    }}
-                  >
-                    <GarmentVisual
-                      image={selectedOutfit.image}
-                      alt={selectedOutfit.alt}
-                      silhouette={selectedOutfit.silhouette}
-                      tone={selectedOutfit.tone}
-                      fit="contain"
-                      zoomOnHover
-                      eager
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-              </Tilt3DCard>
-            )}
+      <div id="gallery-spotlight" className="edition-spread">
+        <div className="edition-plate">
+          {galleryViewMode === '3d' ? (
+            <Exploded3DGarmentStudio angleObj={selectedOutfit} mode="exploded"
+              onModeChange={() => setGalleryViewMode('full')} rotY={galleryRotY} onRotYChange={setGalleryRotY} />
+          ) : (
+            <img src={selectedOutfit.image} alt={selectedOutfit.alt} className="edition-photo" />
+          )}
+          <div className="edition-caption">
+            <span>{selectedOutfit.sku}</span>
+            <button onClick={() => setGalleryViewMode(galleryViewMode === 'full' ? '3d' : 'full')}>
+              {galleryViewMode === 'full' ? 'View in 3D' : 'View photograph'}
+            </button>
           </div>
-
-          {/* Right 6 Columns: Complete Outfit Breakdown, Included Pieces & Order Controls */}
-          <div className="relative lg:col-span-6 bg-white border border-[#5B0E24]/15 p-6 md:p-8  flex flex-col justify-between">
-
-            <div className="relative z-10">
-              <div className="inline-block px-3 py-1 bg-[#5B0E24] text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-[0.14em] mb-3">
-                Full Ensemble Breakdown &bull; {selectedOutfit.sku}
-              </div>
-              <h2 className="font-serif-display text-3xl sm:text-4xl font-semibold text-[#1C1618] leading-tight">
-                {selectedOutfit.title}
-              </h2>
-              <p className="font-mono-spec text-xs text-[#5B0E24] mt-2">
-                {selectedOutfit.fabric}
-              </p>
-              <p className="font-sans-ui text-sm text-[#1C1618]/85 mt-3 leading-relaxed">
-                {selectedOutfit.tailoringNote}
-              </p>
-
-              {/* Included Pieces Checklist */}
-              <div className="mt-5 p-4 bg-[#FAF7F2] border border-[#C8A97E]">
-                <div className="font-mono-spec text-xs uppercase tracking-[0.14em] text-[#5B0E24] mb-2.5">
-                  Garment Pieces Included in Full Outfit
-                </div>
-                <ul className="space-y-1.5 font-sans-ui text-xs sm:text-sm text-[#1C1618]/90">
-                  {selectedOutfit.includedPieces.map((piece) => (
-                    <li key={piece} className="flex items-start gap-2">
-                      <span className="text-[#5B0E24] font-bold">&bull;</span>
-                      <span>{piece}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-3 pt-2.5 border-t border-[#C8A97E]/40 font-mono-spec text-xs text-[#1C1618]/75">
-                  {selectedOutfit.specs}
-                </div>
-              </div>
-
-              {/* Pricing & Workflow Mode Toggle */}
-              <div className="mt-6 pt-4 border-t border-[#C8A97E]/50 flex flex-wrap items-baseline justify-between gap-4">
-                <div>
-                  <span className="font-mono-spec text-xs uppercase tracking-wider text-[#5B0E24] block">
-                    {galleryPurchaseMode === 'rtw'
-                      ? 'Ready-to-Wear Full Set'
-                      : 'Custom Cut to Your Tape'}
-                  </span>
-                  <span className="font-serif-display text-4xl font-bold text-[#5B0E24] tabular-nums">
-                    {formatNaira(
-                      galleryPurchaseMode === 'rtw'
-                        ? selectedOutfit.rtwPrice
-                        : selectedOutfit.bespokePrice
-                    )}
-                  </span>
-                </div>
-
-                <div className="inline-flex rounded-full p-1 bg-[#FAF7F2] border border-[#1C1618]">
-                  {[
-                    { id: 'rtw', label: 'RTW (S–3XL)' },
-                    { id: 'bespoke', label: 'Sew to Measure' },
-                  ].map((m) => (
-                    <button
-                      key={m.id}
-                      type="button"
-                      onClick={() => setGalleryPurchaseMode(m.id)}
-                      className={`px-3.5 py-1.5 rounded-full font-sans-ui text-xs font-semibold transition-colors cursor-pointer ${
-                        galleryPurchaseMode === m.id
-                          ? 'bg-[#5B0E24] text-[#FAF7F2]'
-                          : 'text-[#1C1618]'
-                      }`}
-                    >
-                      {m.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {galleryPurchaseMode === 'rtw' && (
-                <div className="mt-4">
-                  <div className="flex justify-between font-mono-spec text-xs uppercase tracking-wider mb-2">
-                    <span>Select Standard Size</span>
-                    <span className="text-[#5B0E24]">Selected: {galleryRtwSize}</span>
-                  </div>
-                  <div className="grid grid-cols-6 gap-1.5">
-                    {RTW_SIZES.map((sz) => (
-                      <button
-                        key={sz}
-                        type="button"
-                        onClick={() => setGalleryRtwSize(sz)}
-                        className={`min-h-[40px] py-2 font-mono-spec text-xs border transition-colors cursor-pointer ${
-                          galleryRtwSize === sz
-                            ? 'bg-[#1C1618] text-[#FAF7F2] border-[#1C1618]'
-                            : 'bg-[#FAF7F2] text-[#1C1618] border-[#C8A97E]/60 hover:border-[#5B0E24]'
-                        }`}
-                      >
-                        {sz}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="relative z-10 mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <motion.button
-                type="button"
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
-                onClick={() =>
-                  onAddToBag({
-                    sku: selectedOutfit.sku,
-                    purchaseMode: galleryPurchaseMode,
-                    size: galleryPurchaseMode === 'rtw' ? galleryRtwSize : null,
-                    name: selectedOutfit.title,
-                    mode:
-                      galleryPurchaseMode === 'rtw'
-                        ? `Full Outfit RTW • Size ${galleryRtwSize}`
-                        : 'Full Outfit • Custom Cut Commission',
-                    price:
-                      galleryPurchaseMode === 'rtw'
-                        ? selectedOutfit.rtwPrice
-                        : selectedOutfit.bespokePrice,
-                    silhouette: selectedOutfit.silhouette,
-                    tone: selectedOutfit.tone,
-                    image: selectedOutfit.image,
-                  })
-                }
-                className="min-h-[46px] py-3 px-4 bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] font-sans-ui text-xs font-semibold uppercase tracking-[0.1em] transition-colors cursor-pointer"
-              >
-                Add Full Outfit to Cart
-              </motion.button>
-              <button
-                type="button"
-                onClick={() =>
-                  onBookFitting(`${selectedOutfit.title} (${selectedOutfit.sku})`)
-                }
-                className="min-h-[46px] py-3 px-4 border border-[#1C1618] bg-[#FAF7F2] hover:bg-[#1C1618] hover:text-[#FAF7F2] font-mono-spec text-xs uppercase tracking-[0.1em] transition-colors cursor-pointer"
-              >
-                Book Fitting for Look
-              </button>
-            </div>
+        </div>
+        <div className="edition-order">
+          <p className="edition-category">{selectedOutfit.pillar}</p>
+          <h1 className="font-serif-display" id="gallery-page-title">{selectedOutfit.title}</h1>
+          <p className="edition-fabric">{selectedOutfit.fabric}</p>
+          <p className="edition-price">{formatNaira(galleryPurchaseMode === 'rtw' ? selectedOutfit.rtwPrice : selectedOutfit.bespokePrice)}</p>
+          <div className="edition-options">
+            {[['rtw', 'Ready-to-wear'], ['bespoke', 'Made to measure']].map(([mode, label]) => (
+              <button key={mode} aria-pressed={mode === galleryPurchaseMode} onClick={() => setGalleryPurchaseMode(mode)}>{label}</button>
+            ))}
           </div>
+          {galleryPurchaseMode === 'rtw' && (
+            <fieldset className="edition-sizes"><legend>Size</legend>
+              {RTW_SIZES.map(size => (
+                <button key={size} aria-pressed={size === galleryRtwSize} onClick={() => setGalleryRtwSize(size)}>{size}</button>
+              ))}
+            </fieldset>
+          )}
+          <button className="edition-add" onClick={addLook}>Add outfit to cart <span aria-hidden="true">→</span></button>
+          <button className="edition-fitting" onClick={() => onBookFitting(`${selectedOutfit.title} (${selectedOutfit.sku})`)}>Book a fitting for this look</button>
+          <details><summary>Cut &amp; construction</summary><p>{selectedOutfit.tailoringNote}</p><p>{selectedOutfit.specs}</p></details>
+          <details><summary>Included pieces ({selectedOutfit.includedPieces.length})</summary>
+            <ul>{selectedOutfit.includedPieces.map(piece => <li key={piece}>{piece}</li>)}</ul>
+          </details>
         </div>
       </div>
-
-      {/* Filterable 16-Outfit Archive Grid (#gallery-grid) */}
-      <div
-        id="gallery-grid"
-        className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 pt-8 border-t border-[#C8A97E]/50"
-      >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 sm:mb-8">
-          <h3 className="font-serif-display text-2xl sm:text-3xl font-medium text-[#5B0E24]">
-            Browse All {CURVED_GALLERY_ITEMS.length} Lookbook Outfits
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {DEPARTMENT_PILLARS.map((pillar) => {
-              const active = pillar === galleryFilter
-              return (
-                <button
-                  key={pillar}
-                  type="button"
-                  onClick={() => setGalleryFilter(pillar)}
-                  className={`min-h-[36px] px-3 py-1.5 rounded-full font-sans-ui text-xs font-semibold border transition-colors cursor-pointer ${
-                    active
-                      ? 'bg-[#5B0E24] text-[#FAF7F2] border-[#5B0E24]'
-                      : 'bg-[#F2ECE1] text-[#1C1618] border-[#1C1618]/25 hover:border-[#5B0E24]'
-                  }`}
-                >
-                  {pillar}
-                </button>
-              )
-            })}
-          </div>
+      <section id="gallery-grid" className="edition-archive">
+        <h2 className="font-serif-display">The outfit index</h2>
+        <div className="edition-options">
+          {DEPARTMENT_PILLARS.map(pillar => (
+            <button key={pillar} aria-pressed={pillar === galleryFilter} onClick={() => setGalleryFilter(pillar)}>{pillar}</button>
+          ))}
         </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-          {filteredGalleryOutfits.map((look) => {
-            const isCurrent = look.id === selectedOutfit.id
-            return (
-              <Tilt3DCard key={look.id} intensity={6}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSelectOutfit(look.id)
-                    const spot = document.getElementById('gallery-spotlight')
-                    if (spot) spot.scrollIntoView({ behavior: 'smooth' })
-                  }}
-                  className={`w-full text-left bg-white border border-[#5B0E24]/15 h-full flex flex-col justify-between  cursor-pointer transition-colors ${
-                    isCurrent ? 'ring-2 ring-[#5B0E24]' : ''
-                  }`}
-                >
-                  <div className="relative h-52 sm:h-72 px-2.5 sm:px-4 pt-3 sm:pt-4 pb-0 velvet-damask-bg border-b-2 border-[#1C1618]">
-
-                    <div
-                      className="w-full h-full overflow-hidden border-t-2 border-x-2 border-[#C8A97E] bg-[#3A0716]"
-                      style={{
-                        borderTopLeftRadius: '100px',
-                        borderTopRightRadius: '100px',
-                      }}
-                    >
-                      <GarmentVisual
-                        image={look.image}
-                        alt={look.alt}
-                        silhouette={look.silhouette}
-                        tone={look.tone}
-                        zoomOnHover
-                        className="w-full h-full"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-2.5 sm:p-4 space-y-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between font-mono-spec text-[10px] sm:text-xs text-[#5B0E24]">
-                      <span>{look.sku}</span>
-                      <span className="font-semibold">{formatNaira(look.rtwPrice)}</span>
-                    </div>
-                    <div className="font-serif-display text-base sm:text-xl font-semibold text-[#1C1618] leading-snug line-clamp-2">
-                      {look.title}
-                    </div>
-                    <div className="font-mono-spec text-[10px] sm:text-[11px] text-[#1C1618]/70">
-                      {look.includedPieces.length} Pieces Included &rarr;
-                    </div>
-                  </div>
-                </button>
-              </Tilt3DCard>
-            )
-          })}
+        <div className="edition-index">
+          {filteredGalleryOutfits.map(look => (
+            <button key={look.id} aria-current={look.id === selectedOutfit.id || undefined} onClick={() => {
+              onSelectOutfit(look.id)
+              document.getElementById('gallery-spotlight')?.scrollIntoView({behavior: shouldReduceMotion ? 'instant' : 'smooth'})
+            }}>
+              <GarmentVisual image={look.image} alt={look.alt} silhouette={look.silhouette} tone={look.tone} className="aspect-[4/5]" />
+              <strong className="font-serif-display">{look.title}</strong>
+              <span>{formatNaira(look.rtwPrice)}</span>
+            </button>
+          ))}
         </div>
-      </div>
+      </section>
     </section>
   )
 }
