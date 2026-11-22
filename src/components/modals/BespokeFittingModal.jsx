@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { DEFAULT_FITTING_GARMENT, UI_EASE } from '../../constants/storageKeys'
+import { CURVED_GALLERY_ITEMS } from '../../data/raddasData'
 import { CoutureTailorSeal } from '../AtelierVisuals'
 import useRequestSubmission from '../../hooks/useRequestSubmission'
 import ModalDialog from './ModalDialog'
@@ -26,6 +27,9 @@ function BespokeFittingModal({
     notes: '',
   })
   const { id, error, pending, submit } = useRequestSubmission('fittings')
+  const look = CURVED_GALLERY_ITEMS.find(item =>
+    bespokeForm.garment.includes(item.sku) || bespokeForm.garment === item.title
+  )
   function close() {
     if (!pending) onClose()
   }
@@ -42,28 +46,17 @@ function BespokeFittingModal({
         }
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.26, ease: UI_EASE }}
-        className="w-full max-w-xl bg-[#FAF7F2] p-6 md:p-8 shadow-2xl max-h-[92vh] overflow-y-auto"
+        className="fitting-invitation"
       >
-        <div className="dialog-heading flex items-start justify-between gap-4">
+        <header className="fitting-cover">
+          <img src={look?.image || '/lookbook/atelier-craft.jpg'} alt={look?.alt || 'The Victoria Island workroom'} />
           <div>
-            <span className="font-mono-spec text-xs uppercase tracking-[0.16em] text-[#5B0E24]">
-              Radas Atelier
-            </span>
-            <h3 className="font-serif-display text-3xl font-semibold text-[#FAF7F2]">
-              Book Private Fitting Commission
-            </h3>
+            <h2 className="font-serif-display">Private <em>fitting</em></h2>
+            {look && <p>{look.title}</p>}
           </div>
-          <button
-            type="button"
-            data-dialog-initial-focus
-            aria-disabled={pending}
-            onClick={close}
-            className="min-h-[38px] px-3 py-1 border border-[#1C1618] font-mono-spec text-xs hover:bg-[#1C1618] hover:text-[#FAF7F2] transition-colors cursor-pointer"
-          >
-            Close
-          </button>
-        </div>
-
+        </header>
+        <button type="button" className="fitting-close" data-dialog-initial-focus
+          aria-label="Close fitting" aria-disabled={pending} onClick={close}>×</button>
         {id ? (
           <div className="py-8 text-center space-y-4">
             <CoutureTailorSeal
@@ -92,12 +85,12 @@ function BespokeFittingModal({
               e.preventDefault()
               void submit(bespokeForm)
             }}
-            className="mt-5 space-y-4"
+            className="fitting-form"
           >
             <fieldset disabled={pending} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="block">
-                  <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                  <span className="fitting-label">
                     Client Full Name
                   </span>
                   <input
@@ -107,12 +100,12 @@ function BespokeFittingModal({
                     onChange={(e) =>
                       setBespokeForm((f) => ({ ...f, clientName: e.target.value }))
                     }
-                    placeholder="Full Name"
+                    autoComplete="name"
                     className="w-full px-3 py-2.5 bg-[#F2ECE1] border border-[#1C1618]/40 text-sm"
                   />
                 </label>
                 <label className="block">
-                  <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                  <span className="fitting-label">
                     Email Address
                   </span>
                   <input
@@ -122,7 +115,7 @@ function BespokeFittingModal({
                     onChange={(e) =>
                       setBespokeForm((f) => ({ ...f, email: e.target.value }))
                     }
-                    placeholder="client@domain.example"
+                    autoComplete="email"
                     className="w-full px-3 py-2.5 bg-[#F2ECE1] border border-[#1C1618]/40 text-sm"
                   />
                 </label>
@@ -130,7 +123,7 @@ function BespokeFittingModal({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <label className="block">
-                  <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                  <span className="fitting-label">
                     Selected Garment
                   </span>
                   <input
@@ -143,7 +136,7 @@ function BespokeFittingModal({
                   />
                 </label>
                 <label className="block">
-                  <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                  <span className="fitting-label">
                     Fitting Channel
                   </span>
                   <select
@@ -160,14 +153,15 @@ function BespokeFittingModal({
                 </label>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 bg-[#F2ECE1] p-3.5 border border-[#C8A97E]">
+              <div className="fitting-measures grid grid-cols-3 gap-3">
+                <p className="col-span-3 font-serif-display text-xl">Tape measurements</p>
                 {[
                   ['chest', 'Chest'],
                   ['shoulder', 'Shoulder'],
                   ['sleeve', 'Sleeve'],
                 ].map(([k, lbl]) => (
                   <label key={k} className="block">
-                    <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                    <span className="fitting-label">
                       {lbl}
                     </span>
                     <input
@@ -183,7 +177,7 @@ function BespokeFittingModal({
               </div>
 
               <label className="block">
-                <span className="font-mono-spec text-xs uppercase text-[#5B0E24] block mb-1">
+                <span className="fitting-label">
                   Embroidery / Monogram Notes
                 </span>
                 <textarea

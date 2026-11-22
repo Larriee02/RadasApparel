@@ -277,11 +277,11 @@
 }
 .floating-nav {
   position: sticky;
-  top: 10px;
+  top: var(--nav-top);
   z-index: 49;
   width: min(22rem, calc(100% - 24px));
-  height: 50px;
-  margin: 10px auto;
+  height: var(--nav-height);
+  margin: var(--nav-top) auto;
   color: var(--house-paper);
   transition: width 310ms cubic-bezier(.22,1,.36,1);
 }
@@ -471,7 +471,7 @@
 .cart-empty-caption button:hover { color: #e7c999; }
 .cart-summary { margin-top: auto; border-top: 1px dashed #ad9176; padding-top: 1.2rem; }
 
-.cart-overlay { padding: clamp(12px, 5dvh, 48px) 12px; background: rgb(32 10 18 / .23); }
+.cart-overlay { padding: calc(var(--nav-top) + var(--nav-height) + 5px) 12px 12px; background: rgb(32 10 18 / .23); }
 .cart-sheet {
   height: auto; max-height: 100%; border-radius: 42px; padding: clamp(22px, 3vw, 34px);
   border: 1px solid #fff9; background: linear-gradient(125deg, #fff9, transparent 60%), rgb(250 242 230 / .72);
@@ -522,4 +522,39 @@
   .edition-spread { grid-template-columns: 1fr; gap: 1rem; }
   .edition-photo { max-height: 58svh; }
   .edition-index { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+:root { --nav-top: 10px; --nav-height: 50px; }
+.cart-sheet { transform-origin: top center; border-radius: 32px; }
+.edition-plate {
+  padding: clamp(10px, 2vw, 24px); border-radius: 26px;
+  background: linear-gradient(140deg, #f4ede0, #dac8ad);
+  box-shadow: inset 0 0 0 1px #ab90684a, 0 12px 32px -24px #43251799;
+}
+.edition-photo { width: auto; max-width: 100%; height: auto; aspect-ratio: auto; margin: auto; border-radius: 18px; box-shadow: 0 4px 16px #43332224; }
+.edition-caption { background: transparent; color: var(--house-wine); padding: .4rem .25rem 0; }
+.edition-index button > div:first-child { overflow: hidden; border-radius: clamp(12px, 1.6vw, 23px); box-shadow: 0 5px 18px -10px #44312366; }
+.fitting-invitation {
+  position: relative; width: min(100%, 56rem); max-height: 92dvh; overflow: auto;
+  display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
+  background: #fbf6ec; color: #491226; border-radius: 24px;
+  box-shadow: 0 20px 60px #24091655;
+}
+.fitting-cover { position: relative; min-height: 16rem; overflow: hidden; background: #461227; color: #fff4e4; }
+.fitting-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.fitting-cover > div { position: absolute; inset: auto 0 0; padding: 5rem 1.5rem 1.5rem; background: linear-gradient(transparent, #300a1cec 70%); }
+.fitting-cover h2 { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: .98; letter-spacing: -.04em; }
+.fitting-cover p { font-size: .83rem; margin-top: .65rem; }
+.fitting-close { position: absolute; z-index: 1; right: .65rem; top: .55rem; width: 44px; height: 44px; color: #55162e; background: #fff8ebeb; border: 1px solid #d7c7b6; border-radius: 50%; font-size: 1.4rem; cursor: pointer; }
+.fitting-form { padding: 3.8rem clamp(16px, 3vw, 36px) 1.75rem; }
+.fitting-label { display: block; font-size: .8rem; font-weight: 550; margin-bottom: .25rem; }
+.fitting-form :is(input,select,textarea) { min-width: 0; background: #fffaf2; border: 1px solid #d7c7b6; border-radius: 7px; font: inherit; font-size: .91rem; }
+.fitting-measures { border-block: 1px dashed #b8a084; padding-block: .9rem; }
+.fitting-form button[type=submit] { border-radius: 7px; }
+@media (max-width: 680px) {
+  .fitting-invitation { display: block; }
+  .fitting-cover { min-height: 10rem; }
+  .fitting-cover img { object-position: center 22%; }
+  .fitting-cover > div { padding: 3rem 1rem 1rem; }
+  .fitting-form { padding: 1.2rem 1rem; }
 }

@@ -54,9 +54,9 @@ function CartDrawer({
       className="cart-overlay flex justify-center items-start"
     >
       <motion.div
-        initial={shouldReduceMotion ? { x: 0 } : { y: -10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.28, ease: UI_EASE }}
+        initial={shouldReduceMotion ? false : { y: -18, scaleX: 0.87, opacity: 0, clipPath: 'inset(0 0 88% round 32px)' }}
+        animate={{ y: 0, scaleX: 1, opacity: 1, clipPath: 'inset(0 0 0% round 32px)' }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.32, ease: UI_EASE }}
         className="cart-sheet"
       >
         <header className="cart-heading">
