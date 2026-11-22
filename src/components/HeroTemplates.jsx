@@ -55,12 +55,12 @@ function OrbitParallaxCard({
         opacity: 1,
         scale: isSelected && !reduceMotion ? 1.04 : 1,
       }}
-      style={{ x: cardX, y: cardY }}
+      style={{ x: cardX, y: cardY, offsetDistance: `${index * 100 / ORBIT_CARDS.length}%` }}
       transition={{
         opacity: { duration: 0.45, delay: 0.04 + index * 0.03 },
         scale: { duration: 0.2, ease: EASE_UI },
       }}
-      className={`group absolute ${card.posClass} ${card.sizeClass} z-10 pointer-events-auto preserve-3d gpu-smooth`}
+      className="orbit-portrait group absolute z-10 pointer-events-auto preserve-3d gpu-smooth"
     >
       {/* Main Center Plane Portrait Frame */}
       <button
@@ -141,76 +141,16 @@ export function OrbitHero({ onOpenGalleryOutfit }) {
       onMouseLeave={handleMouseLeave}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleMouseLeave}
-      className="relative house-hero text-[#5B0E24] py-3.5 sm:py-5 md:py-6 md:min-h-[590px] md:h-[calc(100svh-68px)] md:max-h-[710px] overflow-hidden border-b border-[#C8A97E]/40 flex flex-col justify-between"
+      className="relative house-hero text-[#5B0E24] py-3.5 sm:py-5 md:py-6 md:min-h-[410px] md:h-[calc(100svh-84px)] md:max-h-[710px] overflow-hidden border-b border-[#C8A97E]/40 flex flex-col justify-between"
     >
       {/* Main 1280px 3D Spatial Orbit Stage */}
       <div className="relative flex-1 w-full max-w-[1280px] mx-auto px-0 sm:px-6 md:px-10 min-h-[420px] sm:min-h-[540px] md:min-h-0 flex items-center justify-center my-0.5 md:my-1 perspective-stage">
-        {/* 10 Mobile & Small-Tablet 3D Orbit Sphere Plates (< md viewports) */}
         <motion.div
           style={{
             rotateX: stageRotX,
             rotateY: stageRotY,
           }}
-          className="md:hidden absolute inset-0 pointer-events-none preserve-3d gpu-smooth"
-        >
-          {ORBIT_CARDS.map((card, i) => {
-            const angleRad = ((-72 + i * 36) * Math.PI) / 180
-            const rxPct = 40.5
-            const ryPct = 40.5
-            const leftPct = 50 + rxPct * Math.cos(angleRad)
-            const topPct = 50 + ryPct * Math.sin(angleRad)
-            const isSelected = activeCard?.id === card.id
-
-            return (
-              <motion.div
-                key={`mob-orb-${card.id}`}
-                data-enter-media
-                initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
-                animate={{
-                  opacity: 1,
-                  scale: isSelected && !reduceMotion ? 1.05 : 1,
-                }}
-                transition={{
-                  opacity: { duration: 0.4, delay: 0.03 * i },
-                  scale: { duration: 0.2, ease: EASE_UI },
-                }}
-                style={{
-                  left: `${leftPct.toFixed(2)}%`,
-                  top: `${topPct.toFixed(2)}%`,
-                }}
-                className="group absolute -translate-x-1/2 -translate-y-1/2 w-[50px] h-[64px] sm:w-[76px] sm:h-[98px] z-10 pointer-events-auto preserve-3d gpu-smooth"
-              >
-                <button
-                  type="button"
-                  onClick={() => handleCardSelect(card)}
-                  className={`w-full h-full rounded-sm overflow-hidden border cursor-pointer block ${
-                    isSelected
-                      ? 'border-[#C8A97E] ring-2 ring-[#5B0E24]/70'
-                      : 'border-[#FAF7F2] hover:border-[#C8A97E]'
-                  }`}
-                  aria-label={`${card.title}, ready-to-wear ${formatNaira(card.rtwPrice)}`}
-                >
-                  <GarmentVisual
-                    image={card.image}
-                    alt={card.title}
-                    silhouette={card.silhouette}
-                    tone={card.tone}
-                    eager
-                    className="w-full h-full"
-                  />
-                </button>
-              </motion.div>
-            )
-          })}
-        </motion.div>
-
-        {/* 10 Desktop 3D Multi-Plane Orbit Plates */}
-        <motion.div
-          style={{
-            rotateX: stageRotX,
-            rotateY: stageRotY,
-          }}
-          className="hidden md:block absolute inset-x-6 lg:inset-x-10 inset-y-0 pointer-events-none preserve-3d gpu-smooth"
+          className="absolute inset-0 pointer-events-none preserve-3d gpu-smooth"
         >
           {ORBIT_CARDS.map((card, i) => (
             <OrbitParallaxCard
