@@ -321,3 +321,49 @@
 @media (prefers-reduced-motion: reduce) {
   .floating-nav, .floating-nav-surface, #house-menu { transition: none; }
 }
+
+.atelier-footer {
+  background: #f3eee5;
+  color: var(--house-wine);
+}
+.footer-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  max-width: 1280px;
+  margin: auto;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 5vw, 4rem);
+}
+.footer-workroom { position: relative; align-self: stretch; min-height: 15rem; }
+.footer-workroom img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center 62%; }
+.footer-workroom figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2rem 1rem .8rem;
+  color: white;
+  background: linear-gradient(transparent, #21100bc9);
+  font-size: .78rem;
+}
+.footer-appointments { align-self: center; }
+.footer-appointments h2 { font-size: clamp(2.8rem, 6vw, 5.75rem); line-height: 1.05; letter-spacing: -.045em; }
+.footer-appointments h2 button { cursor: pointer; text-align: left; }
+.footer-appointments h2 button:hover em { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .1em; }
+.footer-appointments h2 svg { display: inline-block; width: .35em; margin-left: .22em; vertical-align: middle; }
+.footer-salons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; border-top: 1px solid #bcae9e; margin-top: clamp(1.8rem, 3.5vw, 3rem); padding-top: 1.2rem; }
+.footer-salons h3 { font-size: 1.45rem; line-height: 1.1; }
+.footer-salons address { margin-top: .55rem; font-style: normal; font-size: .85rem; line-height: 1.6; color: #564749; }
+.footer-imprint {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .5rem 1.75rem;
+  padding: .8rem max(5vw, calc((100% - 1152px) / 2)); padding-right: max(7rem, calc((100% - 1152px) / 2)); background: #400d20; color: var(--house-paper);
+}
+.footer-signature { display: inline-flex; align-items: center; gap: .6rem; margin-right: auto; font-size: 1.4rem; }
+.footer-signature img { object-fit: contain; }
+.footer-imprint small, .footer-imprint button { font-size: .78rem; }
+.footer-imprint button { cursor: pointer; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 700px) {
+  .footer-spread { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-workroom { min-height: 0; aspect-ratio: 2.5; }
+  .footer-salons { gap: 1rem; }
+  .footer-imprint { padding-right: 6rem; }
+  .footer-signature { flex-basis: 100%; }
+}
