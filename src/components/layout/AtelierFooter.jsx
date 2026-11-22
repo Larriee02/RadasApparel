@@ -29,13 +29,17 @@ function AtelierFooter({ onBookFitting, onCookieSettings }) {
         </div>
       </div>
 
-      <div className="footer-imprint">
-        <span className="footer-signature font-serif-display">
-          <img src="/monogram-gold.png" width="28" height="24" alt="" />
-          Radas Apparel
-        </span>
-        <small>© {new Date().getFullYear()} · Prices in Nigerian naira (₦)</small>
-        <button type="button" onClick={onCookieSettings}>Cookie settings</button>
+      <div id="house-signature" className="footer-imprint">
+        <div className="footer-signature font-serif-display">
+          <span>Radas</span>
+          <img src="/monogram-gold.png" width="48" height="40" alt="" />
+          <em>Apparel</em>
+        </div>
+        <div className="footer-colophon">
+          <small>© {new Date().getFullYear()} Radas Apparel</small>
+          <small>Prices in Nigerian naira (₦)</small>
+          <button type="button" onClick={onCookieSettings}>Cookie settings</button>
+        </div>
       </div>
     </footer>
   )
