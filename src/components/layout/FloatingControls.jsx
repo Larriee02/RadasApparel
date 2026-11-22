@@ -54,20 +54,6 @@ export const CookieConsentPopup = React.memo(function CookieConsentPopup({
           </p>
 
           <div className="mt-2 sm:mt-2.5 space-y-1 sm:space-y-1.5">
-            <div className="flex items-center justify-between gap-2 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] bg-[#5B0E24]/70 border border-[#C8A97E]/35">
-              <div>
-                <div className="font-mono-spec text-[11px] text-[#FAF7F2] font-semibold">
-                  Essential Cart &amp; Session
-                </div>
-                <div className="font-sans-ui text-[10px] text-[#F2ECE1]/70">
-                  Keeps items in your bag
-                </div>
-              </div>
-              <span className="px-2 py-0.5 rounded-full bg-[#C8A97E] text-[#1C1618] font-mono-spec text-[10px] font-bold">
-                ON
-              </span>
-            </div>
-
             <label className="flex cursor-pointer items-center justify-between gap-2 rounded-[8px] border border-[#C8A97E]/30 bg-[#1C1618]/40 px-2.5 py-1.5">
               <span>
                 <span className="block font-mono-spec text-[11px]">Tape Memory</span>

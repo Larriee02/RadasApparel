@@ -290,16 +290,12 @@ export default function App() {
           ) : (
             <>
               <OrbitHero
-                onOpenBespoke={openBespokeWithGarment}
                 onOpenGalleryOutfit={openOutfitByCode}
               />
 
-              <SignatureBentoSection
-                measurements={measurements}
-                onChangeMeasurements={setMeasurements}
+              <CurvedLookbookSection
                 shouldReduceMotion={shouldReduceMotion}
-                onAddToBag={addToBag}
-                onBookFitting={openBespokeWithGarment}
+                onOpenOutfitInGallery={openOutfitInGallery}
               />
 
               <CatalogSection
@@ -308,6 +304,19 @@ export default function App() {
                 onBookFitting={openBespokeWithGarment}
               />
 
+              <details className="atelier-details">
+                <summary>Signature garment &amp; custom measurements</summary>
+              <SignatureBentoSection
+                measurements={measurements}
+                onChangeMeasurements={setMeasurements}
+                shouldReduceMotion={shouldReduceMotion}
+                onAddToBag={addToBag}
+                onBookFitting={openBespokeWithGarment}
+              />
+
+              </details>
+              <details className="atelier-details">
+                <summary>Inside the atelier</summary>
               <CuttingTableSection
                 activeChapterIdx={activeChapterIdx}
                 currentChapter={currentChapter}
@@ -316,19 +325,8 @@ export default function App() {
                 shouldReduceMotion={shouldReduceMotion}
               />
 
-              <CurvedLookbookSection
-                shouldReduceMotion={shouldReduceMotion}
-                onOpenOutfitInGallery={openOutfitInGallery}
-              />
-
-              <MaterialsSection />
-
-              <AboutSection
-                onBookFitting={openBespokeWithGarment}
-                onOpenPage={openPage}
-              />
-
-              <ContactSection shouldReduceMotion={shouldReduceMotion} />
+                <MaterialsSection />
+              </details>
             </>
           )}
         </main>

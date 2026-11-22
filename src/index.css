@@ -223,3 +223,18 @@
     animation: none;
   }
 }
+
+.atelier-details {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+.atelier-details > summary {
+  padding-block: 1.3rem;
+  border-top: 1px solid #c8a97e;
+  color: #5b0e24;
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  cursor: pointer;
+}
+.atelier-details:last-child { margin-bottom: 3rem; }

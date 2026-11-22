@@ -133,19 +133,13 @@ function CurvedLookbookSection({ shouldReduceMotion, onOpenOutfitInGallery }) {
   return (
     <section
       id="curved-wall"
-      className="scroll-mt-32 md:scroll-mt-24 velvet-damask-bg text-[#FAF7F2] py-12 sm:py-14 md:py-20 overflow-hidden border-y-2 border-[#C8A97E]/55"
+      className="scroll-mt-32 md:scroll-mt-24 bg-[#38232A] text-[#FAF7F2] py-12 sm:py-14 md:py-20 overflow-hidden border-y-2 border-[#C8A97E]/55"
     >
       <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8">
         {/* Top Center Headline nestled inside the upper hollow of the concave curve */}
-        <div className="relative z-20 text-center max-w-lg mx-auto mb-2 md:-mb-16 pointer-events-none">
-          <span className="font-mono-spec text-xs uppercase tracking-[0.2em] text-[#C8A97E]">
-            04 • Menswear Lookbook Wall
-          </span>
-          <h2 className="font-serif-display text-2xl sm:text-4xl md:text-[2.85rem] font-medium tracking-wide leading-[1.06] mt-1.5">
-            &ldquo;CRAFTED IN OUR ATELIER.{' '}
-            <span className="italic gold-foil-text block sm:inline">
-              WORN WORLDWIDE.&rdquo;
-            </span>
+        <div className="relative z-20 text-center max-w-lg mx-auto mb-2 md:mb-0 pointer-events-none">
+          <h2 className="font-serif-display text-4xl md:text-6xl tracking-tight">
+            The lookbook
           </h2>
         </div>
 
@@ -174,11 +168,9 @@ function CurvedLookbookSection({ shouldReduceMotion, onOpenOutfitInGallery }) {
         </div>
 
         {/* Bottom Caption, Interactive Glide Controls & Active Outfit Gateway */}
-        <div className="relative z-20 text-center max-w-3xl mx-auto mt-2 md:-mt-12 space-y-3 sm:space-y-4">
+        <div className="relative z-20 text-center max-w-3xl mx-auto mt-2 md:mt-0 space-y-3 sm:space-y-4">
           <p className="font-sans-ui text-xs md:text-sm text-[#F2ECE1]/85 max-w-lg mx-auto leading-relaxed px-2">
-            Swipe or glide left and right across the gallery wall to move through all 16
-            outfits, hover any panel to lift it forward, and tap an image to inspect its
-            full ensemble.
+            Browse the 16 looks. Select a photograph to see the full outfit.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">

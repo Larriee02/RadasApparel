@@ -16,7 +16,7 @@ function HeaderNavbar({
   onOpenBag,
 }) {
   return (
-    <header className="sticky top-0 z-50 glass-navbar text-[#FAF7F2] border-b border-[#FAF7F2]/15">
+    <header className="sticky top-0 z-50 bg-[#38232A] text-[#FAF7F2] border-b border-[#FAF7F2]/15">
       <div className="max-w-[1280px] mx-auto px-3 sm:px-6 md:px-10 py-2 md:py-3">
         {/* Primary Top Bar: Brand Left, 4 Links Center (Desktop), Book Fitting & Cart Top-Right */}
         <div className="flex items-center justify-between gap-2 sm:gap-4">
@@ -36,16 +36,14 @@ function HeaderNavbar({
               <span className="font-serif-display text-base sm:text-lg font-semibold tracking-[0.04em] text-[#FAF7F2] block leading-none">
                 Radas Apparel
               </span>
-              <span className="font-mono-spec text-[10px] sm:text-[11px] text-[#C8A97E] tracking-[0.12em] uppercase">
-                Men&apos;s Fashion
-              </span>
+
             </div>
           </button>
 
           {/* Center Navigation (Home, About Us, Contact, Gallery) — Desktop/Tablet Frosted Glass Capsule */}
           <nav
             aria-label="Primary Navigation"
-            className="hidden md:flex items-center justify-center gap-1 lg:gap-1.5 px-2 py-1 rounded-full glass-pill border border-[#FAF7F2]/20"
+            className="hidden md:flex items-center justify-center gap-1 lg:gap-1.5 px-2 py-1 "
           >
             {NAV_ITEMS.map((item) => {
               const isActive = activePage === item.id
