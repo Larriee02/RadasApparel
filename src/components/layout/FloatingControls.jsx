@@ -75,28 +75,23 @@ export const ScrollToTopButton = React.memo(function ScrollToTopButton({
     }
   }
 
+  if (!scrolledPastFold) return null
+
   return (
     <motion.button
       type="button"
       onClick={handleScrollTop}
       aria-label="Scroll to top"
-      whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
-      className={`fixed bottom-4 right-3 sm:right-5 z-40 min-h-[40px] px-3.5 sm:px-4 py-2 rounded-full bg-[#5B0E24]/95 hover:bg-[#3A0716] text-[#FAF7F2] border-2 border-[#C8A97E] shadow-xl flex items-center gap-1.5 font-mono-spec text-[11px] sm:text-xs uppercase tracking-[0.1em] transition-opacity cursor-pointer ${
-        scrolledPastFold ? 'opacity-100' : 'opacity-85 hover:opacity-100'
-      }`}
+      title="Scroll to top"
+      className="return-glass"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        className="w-3.5 h-3.5 text-[#C8A97E] shrink-0"
-        aria-hidden="true"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-6 6m6-6l6 6" />
+      <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 4h12M12 20V8m-5 5 5-5 5 5" />
       </svg>
-      <span>Top</span>
     </motion.button>
   )
 })
