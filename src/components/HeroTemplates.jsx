@@ -68,9 +68,9 @@ function OrbitParallaxCard({
         onMouseEnter={() => onHover(card)}
         onFocus={() => onHover(card)}
         onClick={() => onSelect(card)}
-        className={`w-full h-full rounded-sm overflow-hidden border cursor-pointer block transition-colors duration-150 ${
+        className={`w-full h-full rounded-[clamp(12px,1.8vw,24px)] shadow-[0_5px_16px_-8px_#542b2240] overflow-hidden border cursor-pointer block transition-colors duration-150 ${
           isSelected
-            ? 'border-[#C8A97E] ring-2 ring-[#5B0E24]/70'
+            ? 'border-[#C8A97E] ring-1 ring-[#5B0E24]/35'
             : 'border-[#FAF7F2] hover:border-[#C8A97E]'
         }`}
         title={`${card.title} (ready-to-wear ${formatNaira(card.rtwPrice)})`}
@@ -167,35 +167,20 @@ export function OrbitHero({ onOpenGalleryOutfit }) {
           ))}
         </motion.div>
 
-        {/* Exotic Royal Medallion Centerpiece */}
-        <div className="relative z-20 w-[182px] h-[182px] sm:w-[300px] sm:h-[300px] md:w-full md:h-auto md:max-w-[440px] mx-auto text-center px-3 py-3 sm:px-7 sm:py-6 md:px-8 md:py-6  flex flex-col items-center justify-center">
-          <div className="relative z-10">
-            <h1
-              id="hero-orbit-h1"
-              className="font-serif-display text-[1.55rem] sm:text-3xl md:text-[3.8rem] font-medium text-[#5B0E24] leading-[1.02] md:leading-[0.96] tracking-[-0.02em]"
-            >
-              <MaskLine delay={0} reduceMotion={reduceMotion}>
-                Menswear,
-              </MaskLine>
-              <span className="italic">
-                <MaskLine delay={0.08} reduceMotion={reduceMotion}>
-                  made to measure.
-                </MaskLine>
-              </span>
-            </h1>
-            <div className="mt-2.5 sm:mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5">
-              <motion.button
-                type="button"
-                onClick={() => scrollToSection('curved-wall')}
-                whileHover={reduceMotion ? undefined : { y: -1 }}
-                whileTap={reduceMotion ? undefined : { y: 1, scale: 0.985 }}
-                transition={{ duration: 0.12, ease: EASE_UI }}
-                className="px-2.5 sm:px-5 min-h-[28px] sm:min-h-[44px] rounded-full bg-[#5B0E24] hover:bg-[#3A0716] text-[#FAF7F2] border border-[#C8A97E]/50 font-sans-ui text-[9px] sm:text-xs font-semibold uppercase tracking-[0.05em] sm:tracking-[0.1em] shadow-md transition-colors cursor-pointer whitespace-nowrap"
-              >
-                Explore Lookbook
-              </motion.button>
-            </div>
-          </div>
+        <div className="relative z-20 flex flex-col items-center text-center">
+          <h1 id="hero-orbit-h1" className="font-serif-display text-[clamp(1.85rem,5vw,4.2rem)] font-medium leading-tight tracking-[-0.035em]">
+            <MaskLine reduceMotion={reduceMotion}>Radas Apparel</MaskLine>
+          </h1>
+          <motion.button
+            type="button"
+            aria-label="Explore lookbook"
+            title="Explore lookbook"
+            onClick={() => scrollToSection('curved-wall')}
+            whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+            className="mt-1 flex min-h-11 items-center justify-center gap-3 rounded-lg px-2 cursor-pointer before:h-px before:w-6 before:bg-[#c8a97e]/55 after:h-px after:w-6 after:bg-[#c8a97e]/55"
+          >
+            <img src="/monogram-gold.png" alt="" width="350" height="292" className="w-11 sm:w-14 h-auto" />
+          </motion.button>
         </div>
       </div>
 
