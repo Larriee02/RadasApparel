@@ -211,13 +211,7 @@ export default function App() {
               <MaterialsSection />
             </div>
           ) : activePage === 'contact' ? (
-            <div className="bg-[#FAF7F2] text-[#1C1618] pb-10">
-              <header className="house-masthead">
-                <div><h1>Lagos workroom & concierge</h1><button onClick={() => openBespokeWithGarment()}>Book a fitting</button></div>
-              </header>
-
-              <ContactSection isStandalone shouldReduceMotion={shouldReduceMotion} />
-            </div>
+            <ContactSection onBookFitting={() => openBespokeWithGarment()} shouldReduceMotion={shouldReduceMotion} />
           ) : activePage === 'gallery' ? (
             <GalleryPage
               selectedOutfitId={selectedOutfitId}

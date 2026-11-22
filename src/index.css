@@ -580,3 +580,29 @@
   .edition-index > button, .edition-photo { animation: outfit-appear 300ms ease-out both; }
   @keyframes outfit-appear { from { opacity: .2; translate: 0 5px; } to { opacity: 1; translate: 0 0; } }
 }
+
+.workroom-contact {
+  display: grid; grid-template-columns: minmax(0, .96fr) minmax(0, 1fr); align-items: start;
+  max-width: 1240px; margin: auto; gap: clamp(2rem, 6vw, 5.5rem);
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  color: var(--house-wine);
+}
+.contact-portrait { position: relative; isolation: isolate; overflow: hidden; border-radius: 3px 42px 3px 3px; }
+.contact-portrait img { width: 100%; height: clamp(17rem, 29vw, 24rem); object-fit: cover; object-position: center 57%; }
+.contact-portrait::after { content: ''; position: absolute; inset: 0; background: linear-gradient(12deg, #240916eb, #24091644 55%, transparent); }
+.contact-portrait h1 { position: absolute; z-index: 1; bottom: .32em; left: .35em; font-size: clamp(3.4rem, 6vw, 5.75rem); line-height: .85; letter-spacing: -.045em; color: #fff6e8; }
+.contact-address { padding: 1.45rem .3rem 0; }
+.contact-address h2 { font-size: 1.95rem; line-height: 1.1; margin-bottom: .65rem; }
+.contact-address address, .contact-address p { font-style: normal; font-size: .86rem; color: #614d50; margin-top: .35rem; }
+.contact-address button { margin-top: .9rem; display: inline-flex; align-items: center; gap: 1.4rem; min-height: 44px; border-bottom: 1px solid #976c72; cursor: pointer; }
+.contact-letter { min-width: 0; border-top: 1px solid #a17f70; padding-top: 1.4rem; }
+.contact-letter > h2 { font-size: clamp(2.5rem, 4.5vw, 4.2rem); line-height: .99; letter-spacing: -.04em; }
+.contact-letter > p { margin: .8rem 0 1.7rem; max-width: 42ch; font-size: .95rem; line-height: 1.5; color: #655054; }
+.contact-label { display: block; font-size: .83rem; font-weight: 600; }
+.contact-field { width: 100%; min-height: 44px; padding: .55rem .2rem; border-bottom: 1px solid #b9a697; background: transparent; font-size: .92rem; color: #392b2e; }
+textarea.contact-field { resize: vertical; }
+.contact-letter button[type=submit] { text-transform: none; letter-spacing: .01em; font-size: .93rem; border-radius: 4px; }
+@media (max-width: 760px) {
+  .workroom-contact { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-portrait img { height: clamp(14rem, 48vw, 21rem); }
+}
