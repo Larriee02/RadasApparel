@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { CURVED_GALLERY_ITEMS } from '../../data/raddasData'
 import { GarmentVisual } from '../AtelierVisuals'
@@ -12,9 +12,7 @@ const CurvedLookbookPanel = React.memo(function CurvedLookbookPanel({
   item,
   index,
   smoothOffset,
-  isFocused,
   reduceMotion,
-  onFocus,
   onSelect,
 }) {
   const panelTransform = useTransform(smoothOffset, (off) => {
@@ -48,20 +46,14 @@ const CurvedLookbookPanel = React.memo(function CurvedLookbookPanel({
       style={{
         transform: panelTransform,
         opacity: panelOpacity,
-        zIndex: isFocused ? 40 : panelZIndex,
+        zIndex: panelZIndex,
       }}
       className="absolute top-1/2 left-1/2 -ml-[61px] -mt-[83px] w-[122px] h-[166px] preserve-3d gpu-smooth"
     >
       <button
         type="button"
-        onMouseEnter={() => onFocus(item.id)}
-        onFocus={() => onFocus(item.id)}
         onClick={() => onSelect(item.id)}
-        className={`group relative w-full h-full rounded-[8px] overflow-hidden shadow-2xl cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-2.5 hover:scale-[1.06] hover:brightness-110 ${
-          isFocused
-            ? 'border-2 border-[#FAF7F2] ring-2 ring-[#C8A97E]'
-            : 'border border-[#C8A97E]/70 hover:border-[#FAF7F2]'
-        }`}
+        className="group relative block w-full h-full overflow-hidden rounded-[8px] border border-[#C8A97E]/70 shadow-2xl cursor-pointer transition-colors hover:border-[#FAF7F2] hover:ring-2 hover:ring-[#C8A97E] focus-visible:ring-2 focus-visible:ring-[#C8A97E]"
         aria-label={`Open ${item.title} full outfit in gallery`}
       >
         <GarmentVisual
@@ -71,7 +63,7 @@ const CurvedLookbookPanel = React.memo(function CurvedLookbookPanel({
           tone={item.tone}
           zoomOnHover
           eager
-          className="w-full h-full"
+          className="pointer-events-none w-full h-full"
         />
       </button>
     </motion.div>
@@ -80,10 +72,9 @@ const CurvedLookbookPanel = React.memo(function CurvedLookbookPanel({
 
 /**
  * Section 04 — 3D Concave Perspective Lookbook Wall (16 Outfits).
- * Isolates pointer MotionValue glide & hover focus state so hovering never re-renders the App root.
+ * Pointer movement updates the spring without re-rendering the wall.
  */
 function CurvedLookbookSection({ shouldReduceMotion, onOpenOutfitInGallery }) {
-  const [hoveredLookId, setHoveredLookId] = useState(CURVED_GALLERY_ITEMS[0].id)
   const touchStartXRef = useRef(null)
   const touchStartOffsetRef = useRef(0)
   const lookbookOffset = useMotionValue(0)
@@ -137,19 +128,17 @@ function CurvedLookbookSection({ shouldReduceMotion, onOpenOutfitInGallery }) {
           onMouseMove={handleLookbookPointerMove}
           onTouchStart={handleLookbookTouchStart}
           onTouchMove={handleLookbookTouchMove}
-          className="relative w-full h-[190px] sm:h-[290px] md:h-[360px] lg:h-[400px] overflow-hidden cursor-ew-resize"
+          className="relative w-full h-[190px] sm:h-[290px] md:h-[360px] lg:h-[400px] overflow-hidden cursor-pointer"
           style={{ perspective: '1200px' }}
         >
-          <div className="relative w-full h-full preserve-3d scale-[0.42] sm:scale-[0.68] md:scale-[0.86] lg:scale-100 origin-center">
+          <div className="relative w-full h-full scale-[0.42] sm:scale-[0.68] md:scale-[0.86] lg:scale-100 origin-center">
             {CURVED_GALLERY_ITEMS.map((item, idx) => (
               <CurvedLookbookPanel
                 key={item.id}
                 item={item}
                 index={idx}
                 smoothOffset={smoothLookbookOffset}
-                isFocused={hoveredLookId === item.id}
                 reduceMotion={shouldReduceMotion}
-                onFocus={setHoveredLookId}
                 onSelect={onOpenOutfitInGallery}
               />
             ))}
