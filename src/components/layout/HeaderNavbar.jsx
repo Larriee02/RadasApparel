@@ -37,21 +37,33 @@ function HeaderNavbar({ activePage, bagCount, onOpenPage, onNavClick, onBookFitt
     <header ref={header} className="floating-nav">
       <div className="floating-nav-surface">
         <div className="floating-nav-bar">
-          <button className="floating-brand" onClick={() => { setOpen(false); onOpenPage('home') }}>
-            <img src="/monogram-gold.png" alt="" /> Radas Apparel
+          <div className="nav-tools">
+            <button aria-label={`Open cart (${bagCount})`} onClick={() => { setOpen(false); onOpenBag() }}>
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M2 3h3l3 12h11l3-9H6" />
+                <circle cx="9" cy="20" r="1.25" /><circle cx="18" cy="20" r="1.25" />
+              </svg>
+            </button>
+            <button ref={toggle} aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open} aria-controls="house-menu" onClick={() => setOpen(!open)}>
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d={open ? 'M5 5l14 14M19 5L5 19' : 'M3 5h18M3 12h18M3 19h18'} />
+              </svg>
+            </button>
+          </div>
+          <button className="floating-brand" aria-label="Radas Apparel home"
+            onClick={() => { setOpen(false); onOpenPage('home') }}>
+            <img src="/monogram-gold.png" alt="" />
           </button>
-          <button ref={toggle} aria-expanded={open} aria-controls="house-menu"
-            onClick={() => setOpen(!open)} className="menu-trigger">
-            <span aria-hidden="true">{open ? '×' : '☰'}</span> {open ? 'Close' : 'Menu'}
-          </button>
-          <button className="nav-fitting" onClick={() => { setOpen(false); onBookFitting() }}>Book Fitting</button>
-          <button className="nav-cart" onClick={() => { setOpen(false); onOpenBag() }}>Cart ({bagCount})</button>
         </div>
         <nav id="house-menu" aria-label="Primary navigation" hidden={!open}>
           {NAV_ITEMS.map(({ id, label }) => (
             <button key={id} aria-current={activePage === id ? 'page' : undefined}
               onClick={() => navigate(id)}>{label}</button>
           ))}
+          <button onClick={() => { toggle.current.focus(); setOpen(false); onBookFitting() }}>
+            Book Fitting
+          </button>
         </nav>
       </div>
     </header>
